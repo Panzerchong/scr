@@ -22,15 +22,15 @@
   </ion-list>
 
   <ion-item >
-  <ion-input required type="text" name="email" placeholder="Comment on your Sleepiness"></ion-input>
+      <!-- <ion-label position="stacked">Comment on your Sleepiness</ion-label> -->
+      <ion-input [clearInput]="true" placeholder="Comment on your Sleepiness" value=""></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label>Date</ion-label>
     <ion-datetime display-format="MM/DD/YYYY">
     </ion-datetime>
   </ion-item>
-  
+
     <ion-row class="ion-align-items-center">  
       <ion-button >Add</ion-button>  
       <ion-button color="light">Cancel</ion-button>  
