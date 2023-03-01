@@ -1,34 +1,43 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      Record Your Sleepiness
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 3 page"></app-explore-container>
-</ion-content>
-
 
 <ion-content>
   <ion-list>
     <ion-item>
       <ion-select interface="action-sheet" placeholder="Select your Sleepiness">
-        <ion-select-option value="apples">Feeling active and vital; alert; wide awake</ion-select-option>
-        <ion-select-option value="oranges">Functioning at a high level, but not at peak; able to concentrate</ion-select-option>
-        <ion-select-option value="oranges">“Relaxed; awake; not at full alertness; responsive</ion-select-option>
-        <ion-select-option value="oranges">A little foggy; not at peak; let down</ion-select-option>
-        <ion-select-option value="oranges">Fogginess; beginning to lose interest in remaining awake; slowed down</ion-select-option>
-        <ion-select-option value="oranges">Sleepiness; prefer to be lying down; fighting sleep; woozy</ion-select-option>
-        <ion-select-option value="oranges">Almost in reverie; sleep onset soon; lost struggle to remain awake.”</ion-select-option>
+        <ion-select-option value="s1">Feeling active and vital; alert; wide awake</ion-select-option>
+        <ion-select-option value="s2">Functioning at a high level, but not at peak; able to concentrate</ion-select-option>
+        <ion-select-option value="s3">“Relaxed; awake; not at full alertness; responsive</ion-select-option>
+        <ion-select-option value="s4">A little foggy; not at peak; let down</ion-select-option>
+        <ion-select-option value="s5">Fogginess; beginning to lose interest in remaining awake; slowed down</ion-select-option>
+        <ion-select-option value="s6">Sleepiness; prefer to be lying down; fighting sleep; woozy</ion-select-option>
+        <ion-select-option value="s7">Almost in reverie; sleep onset soon; lost struggle to remain awake.”</ion-select-option>
       </ion-select>
     </ion-item>
   </ion-list>
+
+  <ion-item >
+  <ion-input required type="text" name="email" placeholder="Comment on your Sleepiness"></ion-input>
+  </ion-item>
+  
+    <ion-row>  
+      <ion-col>   
+       <ion-button >Add</ion-button>  
+      </ion-col> 
+
+      <ion-col>
+        <ion-button color="light">Cancel</ion-button>  
+      </ion-col>
+    </ion-row>
+
+  
+
+
+
+
 </ion-content>
