@@ -24,22 +24,30 @@
   <ion-item >
   <ion-input required type="text" name="email" placeholder="Comment on your Sleepiness"></ion-input>
   </ion-item>
+
+  <ion-item>
+    <ion-label>Date</ion-label>
+    <ion-datetime display-format="MM/DD/YYYY">
+    </ion-datetime>
+  </ion-item>
   
     <ion-row class="ion-align-items-center">  
       <ion-button >Add</ion-button>  
       <ion-button color="light">Cancel</ion-button>  
     </ion-row>
 
-    <ion-card>
-      <ion-card-header>
-      <ion-card-subtitle>Sleepiness record</ion-card-subtitle>
-      <ion-card-title>date and Sleepiness</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-      other information
-      </ion-card-content>
-    </ion-card>
-    
-
-
 </ion-content>
+
+<ion-item>
+  <ion-card>
+    <ion-card-header>
+    <ion-card-subtitle>Sleepiness record</ion-card-subtitle>
+    <ion-card-title>date and Sleepiness</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+    other information
+    </ion-card-content>
+  </ion-card>
+</ion-item>
+
+
