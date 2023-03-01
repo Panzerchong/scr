@@ -5,48 +5,81 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
+<!-- <ion-content>
+  <ion-card color="dark">
+    <ion-card-header>
+      <ion-card-title>Card Title</ion-card-title>
+      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+</ion-content> -->
 
-<ion-accordion-group [multiple]="true" [value]="['first', 'third']">
-  <ion-accordion value="Start Day">
-    <ion-item slot="header" color="light">
-      <ion-label>Start Day: </ion-label>
-    </ion-item>   
-    <div class="ion-padding" slot="content">
-      <ion-datetime presentation="date-month-year"[showDefaultButtons]="true">
-        <span slot="title">Select a Sleep Date</span>
-     </ion-datetime>
-   </div> 
-  </ion-accordion>
+<ion-content>
+  <ion-item (click) = "showPicker = !showPicker">
+    <ion-label>Start Day</ion-label>
+    <ion-text slot="end">
+      {{formattedString}}
+    </ion-text>
+  </ion-item>
+  <ion-datetime *ngIf="showPicker"
+    #datetime
+    [value]="dateValue" size ="cover"
+    (ionChange)="dateChanged(datetime.value)"
+    presentation="date"
+    [showDefaultButtons]="true">
 
-  <ion-accordion value="BedTime">
-    <ion-item slot="header" color="light">
-      <ion-label>Bed Time: </ion-label>
-    </ion-item>
-    <div class="ion-padding" slot="content">
-      <ion-datetime presentation="time" [showDefaultButtons]="true">
-        <span slot="title">Select a Bed Time</span>
-     </ion-datetime>
-    </div>
-  </ion-accordion>
+  </ion-datetime>
+</ion-content>
 
-  <ion-accordion value="End Day">
-    <ion-item slot="header" color="light">
-      <ion-label>End Day: </ion-label>
-    </ion-item>
-    <div class="ion-padding" slot="content">
-      <ion-datetime presentation="date-month-year"[showDefaultButtons]="true">
-        <span slot="title">Select an End Date</span>
-     </ion-datetime>
-   </div> 
-  </ion-accordion>
-  <ion-accordion value="WakeUp">
-    <ion-item slot="header" color="light">
-      <ion-label>Wake Up Time:</ion-label>
-    </ion-item>
-    <div class="ion-padding" slot="content">
-      <ion-datetime presentation="time" [showDefaultButtons]="true">
-        <span slot="title">Select a Wake Up Time</span>
-     </ion-datetime>
-    </div>
-  </ion-accordion>
-</ion-accordion-group>
+<!-- <ion-list>
+  <ion-item>
+    <ion-button shape="round">Add</ion-button>
+  </ion-item>
+  <ion-accordion-group [multiple]="true" [value]="['first', 'third']">
+    <ion-accordion value="Start Day">
+      <ion-item slot="header" color="light">
+        <ion-label>Start Day: </ion-label>
+      </ion-item>
+     
+        <div class="ion-padding" slot="content">
+          <ion-datetime presentation="date" [preferWheel]="true" [showDefaultButtons]="true">
+            <span slot="title">Select a Sleep Date</span>
+         </ion-datetime>
+       </div>     
+    </ion-accordion>
+  
+    <ion-accordion value="BedTime">
+      <ion-item slot="header" color="light">
+        <ion-label>Bed Time: </ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-datetime presentation="time" [showDefaultButtons]="true">
+          <span slot="title">Select a Bed Time</span>
+       </ion-datetime>
+      </div>
+    </ion-accordion>
+  
+    <ion-accordion value="End Day">
+      <ion-item slot="header" color="light">
+        <ion-label>End Day: </ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-datetime presentation="date" [preferWheel]="true" [showDefaultButtons]="true" >
+          <span slot="title">Select an End Date</span>
+       </ion-datetime>
+     </div> 
+    </ion-accordion>
+    <ion-accordion value="WakeUp">
+      <ion-item slot="header" color="light">
+        <ion-label>Wake Up Time:</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-datetime presentation="time" [showDefaultButtons]="true">
+          <span slot="title">Select a Wake Up Time</span>
+       </ion-datetime>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group> 
+</ion-list> -->
+
+
