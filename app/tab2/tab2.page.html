@@ -6,12 +6,47 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-accordion-group [multiple]="true" [value]="['first', 'third']">
+  <ion-accordion value="Start Day">
+    <ion-item slot="header" color="light">
+      <ion-label>Start Day: </ion-label>
+    </ion-item>   
+    <div class="ion-padding" slot="content">
+      <ion-datetime presentation="date-month-year"[showDefaultButtons]="true">
+        <span slot="title">Select a Sleep Date</span>
+     </ion-datetime>
+   </div> 
+  </ion-accordion>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
-</ion-content>
+  <ion-accordion value="BedTime">
+    <ion-item slot="header" color="light">
+      <ion-label>Bed Time: </ion-label>
+    </ion-item>
+    <div class="ion-padding" slot="content">
+      <ion-datetime presentation="time" [showDefaultButtons]="true">
+        <span slot="title">Select a Bed Time</span>
+     </ion-datetime>
+    </div>
+  </ion-accordion>
+
+  <ion-accordion value="End Day">
+    <ion-item slot="header" color="light">
+      <ion-label>End Day: </ion-label>
+    </ion-item>
+    <div class="ion-padding" slot="content">
+      <ion-datetime presentation="date-month-year"[showDefaultButtons]="true">
+        <span slot="title">Select an End Date</span>
+     </ion-datetime>
+   </div> 
+  </ion-accordion>
+  <ion-accordion value="WakeUp">
+    <ion-item slot="header" color="light">
+      <ion-label>Wake Up Time:</ion-label>
+    </ion-item>
+    <div class="ion-padding" slot="content">
+      <ion-datetime presentation="time" [showDefaultButtons]="true">
+        <span slot="title">Select a Wake Up Time</span>
+     </ion-datetime>
+    </div>
+  </ion-accordion>
+</ion-accordion-group>
