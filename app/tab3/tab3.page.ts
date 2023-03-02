@@ -12,7 +12,8 @@ export class Tab3Page {
 
   enterComment: string="";
   comment: string="";
-  storeSleepiness=undefined;
+  storeSleepiness: string="";
+  storeLevel:number=0;
 
   options=[
     {content: "Feeling active and vital",
@@ -40,9 +41,11 @@ export class Tab3Page {
     this.comment=this.enterComment;
   }
 
-  recordSleepiness(eve){
+  recordSleepiness(event){
     
-    this.storeSleepiness=eve.target.value;
+    this.storeSleepiness=event.content;
+    this.storeLevel-event.level;
+    console.log(this.storeSleepiness);
   }
 
 }

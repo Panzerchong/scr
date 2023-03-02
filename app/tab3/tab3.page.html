@@ -9,7 +9,7 @@
 <ion-content>
   <ion-list>
     <ion-item>
-      <ion-select  (ionChange)="recordSleepiness($event)" interface="action-sheet" placeholder="Select your Sleepiness" >
+      <ion-select  (ionChange)="recordSleepiness(event)" interface="action-sheet" placeholder="Select your Sleepiness" >
 
         <ion-select-option [value]="item" *ngFor="let item of options">
           {{item.level}}: {{item.content}}</ion-select-option>    
@@ -43,7 +43,7 @@
   <ion-card>
     <ion-card-header>
     <ion-card-subtitle>Sleepiness record</ion-card-subtitle>
-    <ion-card-title>date and Sleepiness</ion-card-title>
+    <ion-card-title>{{comment}}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
     {{comment}}
