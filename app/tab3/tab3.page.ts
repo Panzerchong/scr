@@ -7,6 +7,14 @@ import { Component } from '@angular/core';
 })
 export class Tab3Page {
 
+  options=[
+    {"content": "the first one",
+    "level": "1"},
+    {"content": "second one",
+    "level": "2"}
+  ];
+
+
   constructor() {}
 
   enterComment: string="";
