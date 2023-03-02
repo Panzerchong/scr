@@ -27,7 +27,8 @@
           [value]="dateValue" size ="cover"
           (ionChange)="dateChanged(datetime.value)"
           presentation="date"
-          [showDefaultButtons]="true">
+          [showDefaultButtons]="true"
+          (ionCancel) = "showPicker = false">
       
         </ion-datetime>
     </div>
@@ -46,7 +47,8 @@
         [value]="bedTimeValue" size ="cover"
         (ionChange)="timeChanged(bedtime.value)"
         presentation="time"
-        [showDefaultButtons]="true">
+        [showDefaultButtons]="true"
+        (ionCancel) = "showPicker = false">
 
       </ion-datetime>
     </div>
@@ -62,11 +64,12 @@
     <div class="ion-padding" slot="content">
       <ion-datetime *ngIf="showPicker"
         #EndDay
-        [value]="dateValue" size ="cover"
+        [value]="endDateValue" size ="cover"
         [min] = "dateValue"
         (ionChange)="endDateChanged(EndDay.value)"
         presentation="date"
-        [showDefaultButtons]="true">
+        [showDefaultButtons]="true"
+        (ionCancel) = "showPicker = false">
 
       </ion-datetime>
     </div>
@@ -80,13 +83,23 @@
           </ion-text>
     </ion-item>
     <div class="ion-padding" slot="content">
-      <ion-datetime *ngIf="showPicker"
+      <ion-datetime *ngIf="showPicker && isDateSame"
         #WakeUp
-        [value]="bedTimeValue" size ="cover"
+        [value]="wakeUpTimeValue" size ="cover"
         [min] = "bedTimeValue"
         (ionChange)="wakeUpTimeChanged(WakeUp.value)"
         presentation="time"
-        [showDefaultButtons]="true">
+        [showDefaultButtons]="true"
+        (ionCancel) = "showPicker = false">
+
+      </ion-datetime>
+      <ion-datetime *ngIf="showPicker && isDateSame == false"
+        #WakeUp
+        [value]="wakeUpTimeValue" size ="cover"
+        (ionChange)="wakeUpTimeChanged(WakeUp.value)"
+        presentation="time"
+        [showDefaultButtons]="true"
+        (ionCancel) = "showPicker = false">
 
       </ion-datetime>
     </div>

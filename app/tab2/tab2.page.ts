@@ -13,6 +13,7 @@ export class Tab2Page {
   formattedBedTime = '';
   formattedEndDay = '';
   formattedWakeUp = '';
+  isDateSame = false;
   dateValue = format(new Date(),'yyyy-MM-dd');
   bedTimeValue =format(new Date(),'yyyy-MM-dd');
   endDateValue =format(new Date(),'yyyy-MM-dd');
@@ -33,7 +34,6 @@ export class Tab2Page {
     this.formattedBedTime = format(parseISO(format(new Date(),'yyyy-MM-dd')), 'HH:mm aaa');
   }
   setEndDay(){
-   // this.formattedEndDay = this.formattedString;
     this.formattedEndDay = format(parseISO(format(new Date(),'yyyy-MM-dd')), 'MMM d, yyyy');
   }
   setWakeUp(){
@@ -45,6 +45,14 @@ export class Tab2Page {
     this.showPicker = true; 
     this.formattedEndDay = this.formattedString;
     console.log(this.formattedString)
+    if(this.formattedEndDay == this.formattedString){
+      console.log("Same day");
+      this.isDateSame = true;
+    }else{
+      console.log("not Same day");
+      this.isDateSame = false;
+    }
+  
   }
   
   timeChanged(ele: any){
@@ -53,13 +61,20 @@ export class Tab2Page {
     this.showPicker = true;
     this.formattedWakeUp = this.formattedBedTime;
     console.log(this.formattedBedTime)
+   
   
   }
   endDateChanged(value: any){
     this.endDateValue = value;
     this.formattedEndDay = format(parseISO(value),'MMM d, yyyy');
     this.showPicker = true; 
-
+    if(this.dateValue == this.endDateValue){
+      console.log("Same day");
+      this.isDateSame = true;
+    }else{
+      console.log("not Same day");
+      this.isDateSame = false;
+    }
     console.log(this.formattedEndDay)
     console.log("End day called");
     
@@ -69,9 +84,7 @@ export class Tab2Page {
     this.formattedWakeUp = format(parseISO(ele),'HH:mm aaa');
     this.showPicker = true;
     console.log(this.formattedWakeUp)
-    if(this.dateValue == this.endDateValue){
-      console.log("Same day");
-    }
+   
   
   }
 }
