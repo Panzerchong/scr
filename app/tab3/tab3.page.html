@@ -9,7 +9,7 @@
 <ion-content>
   <ion-list>
     <ion-item>
-      <ion-select  interface="action-sheet" placeholder="Select your Sleepiness" >
+      <ion-select  (ionChange)="recordSleepiness($event)" interface="action-sheet" placeholder="Select your Sleepiness" >
 
         <ion-select-option [value]="item" *ngFor="let item of options">
           {{item.level}}: {{item.content}}</ion-select-option>    

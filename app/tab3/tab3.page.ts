@@ -7,34 +7,28 @@ import { Component } from '@angular/core';
 })
 export class Tab3Page {
 
-  sleepiness:string="";
-  sleepinessLevel:number=0;
+  // sleepiness:string="";
+  // sleepinessLevel:number=0;
 
   enterComment: string="";
   comment: string="";
-
-  storeLevel:number=0;
-  storeDetail:string="";
-
-
-
-
+  storeSleepiness=undefined;
 
   options=[
-    {"content": "Feeling active and vital",
-    "level": "1"},
-    {"content": "Functioning at a high level, but not at peak; able to concentrate",
-    "level": "2"},
-    {"content": "Relaxed; awake; not at full alertness; responsive",
-    "level": "3"},
-    {"content": "A little foggy; not at peak; let down",
-    "level": "4"},
-    {"content": "Fogginess; beginning to lose interest in remaining awake; slowed down",
-    "level": "5"},
-    {"content": "Sleepiness; prefer to be lying down; fighting sleep; woozy",
-    "level": "6"},
-    {"content": "Almost in reverie; sleep onset soon; lost struggle to remain awake",
-    "level": "7"}
+    {content: "Feeling active and vital",
+    level: "1"},
+    {content: "Functioning at a high level, but not at peak; able to concentrate",
+    level: "2"},
+    {content: "Relaxed; awake; not at full alertness; responsive",
+    level: "3"},
+    {content: "A little foggy; not at peak; let down",
+    level: "4"},
+    {content: "Fogginess; beginning to lose interest in remaining awake; slowed down",
+    level: "5"},
+    {content: "Sleepiness; prefer to be lying down; fighting sleep; woozy",
+    level: "6"},
+    {content: "Almost in reverie; sleep onset soon; lost struggle to remain awake",
+    level: "7"}
   ];
 
   
@@ -46,14 +40,9 @@ export class Tab3Page {
     this.comment=this.enterComment;
   }
 
-  recordSleepiness(){
-
-
-    // this.store=this.sleepiness;
-    // console.log(item);
-    // this.sleepiness=item.content;
-
+  recordSleepiness(eve){
     
+    this.storeSleepiness=eve.target.value;
   }
 
 }
