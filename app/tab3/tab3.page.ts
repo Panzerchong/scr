@@ -1,12 +1,18 @@
 import { Component } from '@angular/core';
+import { StanfordSleepinessData } from '../../app/data/stanford-sleepiness-data';
 
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
+
+
+
 export class Tab3Page {
 
+  
+  
   // sleepiness:string="";
   // sleepinessLevel:number=0;
 
@@ -44,6 +50,11 @@ export class Tab3Page {
 
   onClick(){
     this.comment=this.enterComment;
+    ///
+    let date: Date = new Date("2019-01-16");  
+    let stanfordSleepinessData:StanfordSleepinessData = new StanfordSleepinessData(11, date);
+
+    console.log(stanfordSleepinessData)
   }
 
   recordSleepiness(event){
