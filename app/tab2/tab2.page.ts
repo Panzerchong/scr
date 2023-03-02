@@ -14,6 +14,10 @@ export class Tab2Page {
   formattedEndDay = '';
   formattedWakeUp = '';
   dateValue = format(new Date(),'yyyy-MM-dd');
+  bedTimeValue =format(new Date(),'yyyy-MM-dd');
+  endDateValue =format(new Date(),'yyyy-MM-dd');
+  wakeUpTimeValue =format(new Date(),'yyyy-MM-dd');
+
   constructor() {
     this.setToday();
     this.setBedTime();
@@ -29,6 +33,7 @@ export class Tab2Page {
     this.formattedBedTime = format(parseISO(format(new Date(),'yyyy-MM-dd')), 'HH:mm aaa');
   }
   setEndDay(){
+   // this.formattedEndDay = this.formattedString;
     this.formattedEndDay = format(parseISO(format(new Date(),'yyyy-MM-dd')), 'MMM d, yyyy');
   }
   setWakeUp(){
@@ -37,28 +42,36 @@ export class Tab2Page {
   dateChanged(value: any){
     this.dateValue = value;
     this.formattedString = format(parseISO(value),'MMM d, yyyy');
-    console.log(this.formattedString)
     this.showPicker = true; 
+    this.formattedEndDay = this.formattedString;
+    console.log(this.formattedString)
   }
   
   timeChanged(ele: any){
-    this.dateValue = ele;
+    this.bedTimeValue = ele;
     this.formattedBedTime = format(parseISO(ele),'HH:mm aaa');
     this.showPicker = true;
+    this.formattedWakeUp = this.formattedBedTime;
     console.log(this.formattedBedTime)
   
   }
   endDateChanged(value: any){
-    this.dateValue = value;
+    this.endDateValue = value;
     this.formattedEndDay = format(parseISO(value),'MMM d, yyyy');
-    console.log(this.formattedEndDay)
     this.showPicker = true; 
+
+    console.log(this.formattedEndDay)
+    console.log("End day called");
+    
   }
   wakeUpTimeChanged(ele: any){
-    this.dateValue = ele;
+    this.wakeUpTimeValue = ele;
     this.formattedWakeUp = format(parseISO(ele),'HH:mm aaa');
     this.showPicker = true;
     console.log(this.formattedWakeUp)
+    if(this.dateValue == this.endDateValue){
+      console.log("Same day");
+    }
   
   }
 }

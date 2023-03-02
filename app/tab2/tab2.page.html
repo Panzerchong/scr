@@ -43,7 +43,7 @@
     <div class="ion-padding" slot="content">
       <ion-datetime *ngIf="showPicker"
         #bedtime
-        [value]="dateValue" size ="cover"
+        [value]="bedTimeValue" size ="cover"
         (ionChange)="timeChanged(bedtime.value)"
         presentation="time"
         [showDefaultButtons]="true">
@@ -63,6 +63,7 @@
       <ion-datetime *ngIf="showPicker"
         #EndDay
         [value]="dateValue" size ="cover"
+        [min] = "dateValue"
         (ionChange)="endDateChanged(EndDay.value)"
         presentation="date"
         [showDefaultButtons]="true">
@@ -81,7 +82,8 @@
     <div class="ion-padding" slot="content">
       <ion-datetime *ngIf="showPicker"
         #WakeUp
-        [value]="dateValue" size ="cover"
+        [value]="bedTimeValue" size ="cover"
+        [min] = "bedTimeValue"
         (ionChange)="wakeUpTimeChanged(WakeUp.value)"
         presentation="time"
         [showDefaultButtons]="true">
@@ -92,39 +94,7 @@
   
 </ion-accordion-group>
 
-<!-- <ion-content>
-  <ion-item (click) = "showPicker = !showPicker">
-    <ion-label>Start Day</ion-label>
-    <ion-text slot="end">
-      {{formattedString}}
-    </ion-text>
-  </ion-item>
-  <ion-datetime *ngIf="showPicker"
-    #datetime
-    [value]="dateValue" size ="cover"
-    (ionChange)="dateChanged(datetime.value)"
-    presentation="date"
-    [showDefaultButtons]="true">
 
-  </ion-datetime>
-</ion-content> -->
-
-<!-- <ion-content>
-  <ion-item (click)= "showPicker = !showPicker">
-    <ion-label>Bed Time</ion-label>
-    <ion-text slot="end">
-      {{formattedBedTime}}
-    </ion-text>
-  </ion-item>
-  <ion-datetime *ngIf="showPicker"
-    #bedtime
-    [value]="dateValue" size ="cover"
-    (ionChange)="timeChanged(bedtime.value)"
-    presentation="time"
-    [showDefaultButtons]="true">
-
-  </ion-datetime>
-</ion-content> -->
 
 
 
