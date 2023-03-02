@@ -15,6 +15,11 @@ export class Tab3Page {
   storeSleepiness: string="";
   storeLevel:number=0;
 
+  event=[
+    {content: "",
+    level: ""}
+  ];
+
   options=[
     {content: "Feeling active and vital",
     level: "1"},
