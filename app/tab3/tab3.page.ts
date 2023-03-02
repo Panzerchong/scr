@@ -9,4 +9,11 @@ export class Tab3Page {
 
   constructor() {}
 
+  enterComment: string="";
+  comment: string="";
+
+  onClick(){
+    this.comment=this.enterComment;
+  }
+
 }

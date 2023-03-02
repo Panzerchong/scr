@@ -23,8 +23,11 @@
 
   <ion-item >
       <!-- <ion-label position="stacked">Comment on your Sleepiness</ion-label> -->
-      <ion-input [clearInput]="true" placeholder="Comment on your Sleepiness" value=""></ion-input>
+      <ion-input [clearInput]="true" placeholder="Comment on your Sleepiness" [(ngModel)]="enterComment"></ion-input>
   </ion-item>
+
+
+
 
   <ion-item>
     <ion-datetime display-format="MM/DD/YYYY">
@@ -33,7 +36,7 @@
 
   <ion-item class="ion-align-items-center">
     <ion-row class="ion-align-items-center">  
-      <ion-button >Add</ion-button>  
+      <ion-button (click)="onClick()">Add</ion-button>  
       <ion-button color="light">Cancel</ion-button>  
     </ion-row>
   </ion-item>
@@ -47,7 +50,7 @@
     <ion-card-title>date and Sleepiness</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-    other information
+    {{comment}}
     </ion-card-content>
   </ion-card>
 </ion-item>
