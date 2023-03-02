@@ -9,22 +9,24 @@
 <ion-content>
   <ion-list>
     <ion-item>
-      <ion-select interface="action-sheet" placeholder="Select your Sleepiness">
-        <ion-select-option value="s1">Feeling active and vital; alert; wide awake</ion-select-option>
-        <ion-select-option value="s2">Functioning at a high level, but not at peak; able to concentrate</ion-select-option>
-        <ion-select-option value="s3">“Relaxed; awake; not at full alertness; responsive</ion-select-option>
-        <ion-select-option value="s4">A little foggy; not at peak; let down</ion-select-option>
-        <ion-select-option value="s5">Fogginess; beginning to lose interest in remaining awake; slowed down</ion-select-option>
-        <ion-select-option value="s6">Sleepiness; prefer to be lying down; fighting sleep; woozy</ion-select-option>
-        <ion-select-option value="s7">Almost in reverie; sleep onset soon; lost struggle to remain awake.”</ion-select-option>
+      <ion-select  interface="action-sheet" placeholder="Select your Sleepiness" >
+
+
+
+
+        <ion-select-option value="item" *ngFor="let item of options">
+          {{item.level}}: {{item.content}}</ion-select-option>    
       </ion-select>
     </ion-item>
   </ion-list>
 
   <ion-item >
       <!-- <ion-label position="stacked">Comment on your Sleepiness</ion-label> -->
-      <ion-input [clearInput]="true" placeholder="Comment on your Sleepiness" value=""></ion-input>
+      <ion-input [clearInput]="true" placeholder="Comment on your Sleepiness" [(ngModel)]="enterComment"></ion-input>
   </ion-item>
+
+
+
 
   <ion-item>
     <ion-datetime display-format="MM/DD/YYYY">
@@ -33,7 +35,7 @@
 
   <ion-item class="ion-align-items-center">
     <ion-row class="ion-align-items-center">  
-      <ion-button >Add</ion-button>  
+      <ion-button (click)="onClick()">Add</ion-button>  
       <ion-button color="light">Cancel</ion-button>  
     </ion-row>
   </ion-item>
@@ -47,7 +49,7 @@
     <ion-card-title>date and Sleepiness</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-    other information
+    {{comment}}
     </ion-card-content>
   </ion-card>
 </ion-item>
