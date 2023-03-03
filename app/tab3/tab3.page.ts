@@ -11,20 +11,17 @@ import { StanfordSleepinessData } from '../../app/data/stanford-sleepiness-data'
 
 export class Tab3Page {
 
-  
-  
-  // sleepiness:string="";
-  // sleepinessLevel:number=0;
-
   enterComment: string="";
   comment: string="";
+
   storeSleepiness: string="";
   storeLevel:number=0;
 
-  event=[
-    {content: "",
-    level: ""}
-  ];
+  enterSleepiness={content:"",level:0};
+
+
+  // date: Date = new Date("1900-0-00");  
+  // enterSleepiness= new StanfordSleepinessData(1, this.date);
 
   options=[
     {content: "Feeling active and vital",
@@ -43,25 +40,22 @@ export class Tab3Page {
     level: "7"}
   ];
 
-  
-
   constructor() {}
-
 
   onClick(){
     this.comment=this.enterComment;
-    ///
-    let date: Date = new Date("2019-01-16");  
-    let stanfordSleepinessData:StanfordSleepinessData = new StanfordSleepinessData(11, date);
-
-    console.log(stanfordSleepinessData)
+    this.storeSleepiness=this.enterSleepiness.content;
+    this.storeLevel=this.enterSleepiness.level;
+    console.log(this.storeSleepiness)
+    console.log(this.storeLevel)
   }
 
-  recordSleepiness(event){
-    
-    this.storeSleepiness=event.content;
-    this.storeLevel-event.level;
-    console.log(this.storeSleepiness);
+  recordSleepiness(event:any){
+    //this.testData=event.target.value;
+    console.log(event.content);
+    // this.storeSleepiness=event.content;
+    // this.storeLevel-event.level;
+    // console.log(this.storeSleepiness);
   }
 
 }

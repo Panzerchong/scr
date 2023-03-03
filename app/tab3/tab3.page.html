@@ -9,11 +9,11 @@
 <ion-content>
   <ion-list>
     <ion-item>
-      <ion-select  (ionChange)="recordSleepiness(event)" interface="action-sheet" placeholder="Select your Sleepiness" >
-
-        <ion-select-option [value]="item" *ngFor="let item of options">
-          {{item.level}}: {{item.content}}</ion-select-option>    
-      </ion-select>
+      <ion-select [(ngModel)]="enterSleepiness" 
+      interface="action-sheet" placeholder="Select your Sleepiness" >
+        <ion-select-option [value]="item" *ngFor="let item of options" >
+          {{item.level}}: {{item.content}}</ion-select-option>  
+      </ion-select >
     </ion-item>
   </ion-list>
 
@@ -22,20 +22,12 @@
       <ion-input [clearInput]="true" placeholder="Comment on your Sleepiness" [(ngModel)]="enterComment"></ion-input>
   </ion-item>
 
-
-
-
   <ion-item>
     <ion-datetime display-format="MM/DD/YYYY">
     </ion-datetime>
   </ion-item>
 
-  <ion-item class="ion-align-items-center">
-    <ion-row class="ion-align-items-center">  
-      <ion-button (click)="onClick()">Add</ion-button>  
-      <ion-button color="light">Cancel</ion-button>  
-    </ion-row>
-  </ion-item>
+      <ion-button *ngIf="enterSleepiness.level!=0" expand="block" (click)="onClick()">Add</ion-button> 
 
 </ion-content>
 
@@ -43,7 +35,7 @@
   <ion-card>
     <ion-card-header>
     <ion-card-subtitle>Sleepiness record</ion-card-subtitle>
-    <ion-card-title>{{comment}}</ion-card-title>
+    <ion-card-title>{{storeSleepiness}}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
     {{comment}}
