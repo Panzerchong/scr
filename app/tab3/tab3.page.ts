@@ -13,14 +13,13 @@ export class Tab3Page {
 
   enterComment: string="";
   comment: string="";
-
   storeSleepiness: string="";
   storeLevel:number=0;
 
   enterSleepiness={content:"",level:0};
+  dateTime: Date = new Date();
+  newDateTime: Date = new Date();
 
-
-  // date: Date = new Date("1900-0-00");  
   // enterSleepiness= new StanfordSleepinessData(1, this.date);
 
   options=[
@@ -46,8 +45,10 @@ export class Tab3Page {
     this.comment=this.enterComment;
     this.storeSleepiness=this.enterSleepiness.content;
     this.storeLevel=this.enterSleepiness.level;
+    this.newDateTime=this.dateTime;
     console.log(this.storeSleepiness)
     console.log(this.storeLevel)
+    console.log(this.newDateTime)
   }
 
   recordSleepiness(event:any){
