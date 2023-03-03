@@ -17,9 +17,10 @@ export class Tab3Page {
   storeSleepiness: string="";
   storeLevel:number=0;
   enterSleepiness={content:"",level:0};
-
-  dateTime= format(new Date(),'yyyy-MM-dd')+'T09:00:00.000Z';
-  newDateTime= format(new Date(),'yyyy-MM-dd')+'T09:00:00.000Z';
+  dateTime= format(new Date(),'yyyy-MM-dd')+'T08:00:00.000Z';
+  
+  currentDate:string="";
+  currentLevel:string="";
 
   sleepinessArray: StanfordSleepinessData[];
 
@@ -42,18 +43,21 @@ export class Tab3Page {
 
   constructor() {
     this.sleepinessArray=[];
+
   }
 
   onClick(){
     this.comment=this.enterComment;
     this.storeSleepiness=this.enterSleepiness.content;
     this.storeLevel=this.enterSleepiness.level;
-    // this.newDateTime=this.dateTime;
-
-
-    //this.sleepinessArray.push(new StanfordSleepinessData(this.enterSleepiness.level,this.dateTime));
+    let newDateTime=new Date(this.dateTime);
+    
+    this.currentLevel=this.storeLevel.toString()+": ";
+    this.currentDate=newDateTime.toString().substring(4,21)
+    
+    this.sleepinessArray.push(new StanfordSleepinessData(this.enterSleepiness.level,newDateTime));
     console.log(this.storeSleepiness)
-    console.log(this.storeLevel)
+    console.log(this.sleepinessArray[0].loggedAt)
     // console.log(this.newDateTime)
   }
 
