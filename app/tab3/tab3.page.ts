@@ -57,7 +57,7 @@ export class Tab3Page {
     
     this.sleepinessArray.push(new StanfordSleepinessData(this.comment,this.enterSleepiness.level,newDateTime));
     console.log(this.storeSleepiness)
-    console.log(this.sleepinessArray[0].loggedAt)
+    console.log(this.sleepinessArray[0])
     // console.log(this.newDateTime)
   }
 
