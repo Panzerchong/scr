@@ -26,7 +26,9 @@
     </ion-datetime>
   </ion-item>
 
-      <ion-button *ngIf="enterSleepiness.level!=0" expand="block" (click)="onClick()">Add</ion-button> 
+      <ion-button *ngIf="enterSleepiness.level!=0" expand="block" (click)="onClick()">Add
+        <ion-icon slot="start" name="add-circle"></ion-icon>
+      </ion-button> 
 
 </ion-content>
 
