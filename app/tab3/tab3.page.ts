@@ -21,6 +21,7 @@ export class Tab3Page {
   dateTime= format(new Date(),'yyyy-MM-dd')+'T09:00:00.000Z';
   newDateTime= format(new Date(),'yyyy-MM-dd')+'T09:00:00.000Z';
   // enterSleepiness= new StanfordSleepinessData(1, this.date);
+  sleepinessDataArray: StanfordSleepinessData[];
 
   options=[
     {content: "Feeling active and vital",
@@ -39,24 +40,21 @@ export class Tab3Page {
     level: "7"}
   ];
 
-  constructor() {}
+  constructor() {
+    this.sleepinessDataArray=[];
+  }
 
   onClick(){
     this.comment=this.enterComment;
     this.storeSleepiness=this.enterSleepiness.content;
     this.storeLevel=this.enterSleepiness.level;
     this.newDateTime=this.dateTime;
+
+
+    //this.sleepinessDataArray.push(new StanfordSleepinessData(this.enterSleepiness.level,this.dateTime));
     console.log(this.storeSleepiness)
     console.log(this.storeLevel)
     console.log(this.newDateTime)
-  }
-
-  recordSleepiness(event:any){
-    //this.testData=event.target.value;
-    console.log(event.content);
-    // this.storeSleepiness=event.content;
-    // this.storeLevel-event.level;
-    // console.log(this.storeSleepiness);
   }
 
 }
