@@ -55,7 +55,7 @@ export class Tab3Page {
     this.currentLevel=this.storeLevel.toString()+": ";
     this.currentDate=newDateTime.toString().substring(4,21)
     
-    this.sleepinessArray.push(new StanfordSleepinessData(this.enterSleepiness.level,newDateTime));
+    this.sleepinessArray.push(new StanfordSleepinessData(this.comment,this.enterSleepiness.level,newDateTime));
     console.log(this.storeSleepiness)
     console.log(this.sleepinessArray[0].loggedAt)
     // console.log(this.newDateTime)
