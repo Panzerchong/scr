@@ -22,7 +22,8 @@
   </ion-item>
 
   <ion-item>
-    <ion-datetime [(ngModel)]="dateTime">
+    <!-- <ion-datetime display-format="YYYY-MM-DD" [(ngModel)]="dateTime"> -->
+      <ion-datetime [(ngModel)]="dateTime">
     </ion-datetime>
   </ion-item>
 
@@ -33,13 +34,13 @@
 </ion-content>
 
 <ion-item>
-  <ion-card>
+  <ion-card color="primary">
     <ion-card-header>
-    <ion-card-subtitle>Sleepiness record</ion-card-subtitle>
-    <ion-card-title>{{storeSleepiness}}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-    {{comment}}
-    </ion-card-content>
+    <ion-card-subtitle class="ion-text-center">Sleepiness record</ion-card-subtitle>
+    <ion-card-title>{{currentLevel}} {{storeSleepiness}}</ion-card-title>
+  </ion-card-header>
+    <ion-card-content>{{currentDate}}</ion-card-content>
+    <ion-card-content>{{comment}}</ion-card-content>
+    
   </ion-card>
 </ion-item>
