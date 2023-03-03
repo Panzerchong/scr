@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { format, parseISO } from 'date-fns';
-
+import { SleepService } from '../../app/services/sleep.service';
+import { OvernightSleepData  } from '../../app/data/overnight-sleep-data';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -10,6 +11,7 @@ export class Tab2Page {
 
   showPicker = false;
   formattedString = '';
+  test ='';
   formattedBedTime = '';
   formattedEndDay = '';
   formattedWakeUp = '';
@@ -19,13 +21,21 @@ export class Tab2Page {
   endDateValue =format(new Date(),'yyyy-MM-dd');
   wakeUpTimeValue =format(new Date(),'yyyy-MM-dd');
 
+  
+  overnightArray: String[];
+  recentOvernight: String;
   constructor() {
     this.setToday();
     this.setBedTime();
     this.setEndDay();
     this.setWakeUp();
     
+    this.overnightArray = new Array;
+    this.recentOvernight= this.overnightArray[this.overnightArray.length-1]; 
+    console.log(this.overnightArray.length);
+    
   }
+
 
   setToday(){
     this.formattedString = format(parseISO(format(new Date(),'yyyy-MM-dd')), 'MMM d, yyyy');
@@ -86,6 +96,31 @@ export class Tab2Page {
     console.log(this.formattedWakeUp)
    
   
+  }
+  addDateClicked(){
+    console.log("Start Day: " + this.formattedString);
+    console.log("End Day: " + this.formattedEndDay);
+    console.log("Bed Time: " + this.formattedBedTime);
+    console.log("Wake Up Time: " + this.formattedWakeUp);
+
+    var sleepTime = new Date(this.bedTimeValue);
+    var slepTime_ms = sleepTime.getTime();
+
+    var waketime = new Date(this.wakeUpTimeValue);
+    var waketime_ms = waketime.getTime();
+
+    var diff = waketime_ms - slepTime_ms;
+
+    var hour = Math.floor(diff / (1000*60*60));
+    var minutes = Math.floor(diff / (1000*60) % 60);
+    console.log("Different Time " + diff);
+    let oneDay = "From " + this.formattedString + " to " + this.formattedEndDay 
+                 + "\n" + hour + " hour " + minutes + " minutes";
+    
+    this.overnightArray.push(oneDay);
+    //this.overnightArray.push(this.formattedEndDay);
+    
+    this.recentOvernight= this.overnightArray[this.overnightArray.length-1]; 
   }
 }
 

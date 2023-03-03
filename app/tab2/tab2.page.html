@@ -5,109 +5,118 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-<!-- <ion-content>
-  <ion-card color="dark">
-    <ion-card-header>
-      <ion-card-title>Card Title</ion-card-title>
-      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-    </ion-card-header>
-  </ion-card>
-</ion-content> -->
-<ion-accordion-group >
-  <ion-accordion value="StartDay" >
-    <ion-item slot="header" color="light" (click)= "showPicker = !false">
-     <ion-label>Start Day</ion-label>
-          <ion-text slot="end">
-            {{formattedString}}
-          </ion-text>
-    </ion-item>
-    <div class="ion-padding" slot="content">
-      <ion-datetime *ngIf="showPicker"
-          #datetime
-          [value]="dateValue" size ="cover"
-          (ionChange)="dateChanged(datetime.value)"
+
+
+<ion-content>
+  <ion-accordion-group >
+    <ion-accordion value="StartDay" >
+      <ion-item slot="header" color="light" (click)= "showPicker = !false">
+       <ion-label>Start Day</ion-label>
+            <ion-text slot="end">
+              {{formattedString}}
+            </ion-text>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-datetime *ngIf="showPicker"
+            #datetime
+            [value]="dateValue" size ="cover"
+            (ionChange)="dateChanged(datetime.value)"
+            presentation="date"
+            [showDefaultButtons]="true"
+            (ionCancel) = "showPicker = false">
+        
+          </ion-datetime>
+      </div>
+    </ion-accordion>
+  
+    <ion-accordion value="BedTime" >
+      <ion-item slot="header" color="light" (click)= "showPicker = !false">
+       <ion-label>Bed Time</ion-label>
+            <ion-text slot="end">
+              {{formattedBedTime}}
+            </ion-text>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-datetime *ngIf="showPicker"
+          #bedtime
+          [value]="bedTimeValue" size ="cover"
+          (ionChange)="timeChanged(bedtime.value)"
+          presentation="time"
+          [showDefaultButtons]="true"
+          (ionCancel) = "showPicker = false">
+  
+        </ion-datetime>
+      </div>
+    </ion-accordion>
+  
+    <ion-accordion value="EndDay" >
+      <ion-item slot="header" color="light" (click)= "showPicker = !false">
+       <ion-label>End Day</ion-label>
+            <ion-text slot="end">
+              {{formattedEndDay}}
+            </ion-text>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-datetime *ngIf="showPicker"
+          #EndDay
+          [value]="endDateValue" size ="cover"
+          [min] = "dateValue"
+          (ionChange)="endDateChanged(EndDay.value)"
           presentation="date"
           [showDefaultButtons]="true"
           (ionCancel) = "showPicker = false">
-      
-        </ion-datetime>
-    </div>
-  </ion-accordion>
-
-  <ion-accordion value="BedTime" >
-    <ion-item slot="header" color="light" (click)= "showPicker = !false">
-     <ion-label>Bed Time</ion-label>
-          <ion-text slot="end">
-            {{formattedBedTime}}
-          </ion-text>
-    </ion-item>
-    <div class="ion-padding" slot="content">
-      <ion-datetime *ngIf="showPicker"
-        #bedtime
-        [value]="bedTimeValue" size ="cover"
-        (ionChange)="timeChanged(bedtime.value)"
-        presentation="time"
-        [showDefaultButtons]="true"
-        (ionCancel) = "showPicker = false">
-
-      </ion-datetime>
-    </div>
-  </ion-accordion>
-
-  <ion-accordion value="EndDay" >
-    <ion-item slot="header" color="light" (click)= "showPicker = !false">
-     <ion-label>End Day</ion-label>
-          <ion-text slot="end">
-            {{formattedEndDay}}
-          </ion-text>
-    </ion-item>
-    <div class="ion-padding" slot="content">
-      <ion-datetime *ngIf="showPicker"
-        #EndDay
-        [value]="endDateValue" size ="cover"
-        [min] = "dateValue"
-        (ionChange)="endDateChanged(EndDay.value)"
-        presentation="date"
-        [showDefaultButtons]="true"
-        (ionCancel) = "showPicker = false">
-
-      </ion-datetime>
-    </div>
-  </ion-accordion>
-
-  <ion-accordion value="WakeUp" >
-    <ion-item slot="header" color="light" (click)= "showPicker = !false">
-     <ion-label>Wake Up Time</ion-label>
-          <ion-text slot="end">
-            {{formattedWakeUp}}
-          </ion-text>
-    </ion-item>
-    <div class="ion-padding" slot="content">
-      <ion-datetime *ngIf="showPicker && isDateSame"
-        #WakeUp
-        [value]="wakeUpTimeValue" size ="cover"
-        [min] = "bedTimeValue"
-        (ionChange)="wakeUpTimeChanged(WakeUp.value)"
-        presentation="time"
-        [showDefaultButtons]="true"
-        (ionCancel) = "showPicker = false">
-
-      </ion-datetime>
-      <ion-datetime *ngIf="showPicker && isDateSame == false"
-        #WakeUp
-        [value]="wakeUpTimeValue" size ="cover"
-        (ionChange)="wakeUpTimeChanged(WakeUp.value)"
-        presentation="time"
-        [showDefaultButtons]="true"
-        (ionCancel) = "showPicker = false">
-
-      </ion-datetime>
-    </div>
-  </ion-accordion>
   
-</ion-accordion-group>
+        </ion-datetime>
+      </div>
+    </ion-accordion>
+  
+    <ion-accordion value="WakeUp" >
+      <ion-item slot="header" color="light" (click)= "showPicker = !false">
+       <ion-label>Wake Up Time</ion-label>
+            <ion-text slot="end">
+              {{formattedWakeUp}}
+            </ion-text>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-datetime *ngIf="showPicker && isDateSame"
+          #WakeUp
+          [value]="wakeUpTimeValue" size ="cover"
+          [min] = "bedTimeValue"
+          (ionChange)="wakeUpTimeChanged(WakeUp.value)"
+          presentation="time"
+          [showDefaultButtons]="true"
+          (ionCancel) = "showPicker = false">
+  
+        </ion-datetime>
+        <ion-datetime *ngIf="showPicker && isDateSame == false"
+          #WakeUp
+          [value]="wakeUpTimeValue" size ="cover"
+          (ionChange)="wakeUpTimeChanged(WakeUp.value)"
+          presentation="time"
+          [showDefaultButtons]="true"
+          (ionCancel) = "showPicker = false">
+  
+        </ion-datetime>
+      </div>
+    </ion-accordion>
+    
+  </ion-accordion-group>
 
+  <ion-button expand="block" (click)="addDateClicked()">
+    Save
+    <ion-icon slot="start" name="moon-outline"></ion-icon>
+  </ion-button>
+  
+</ion-content>
 
+<ion-content>
+  <ion-card color="dark">
+    <ion-card-header>
+      <ion-card-title>Log Sleep</ion-card-title>
+      <ion-card-subtitle>{{recentOvernight}}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+</ion-content>
 
 
 
