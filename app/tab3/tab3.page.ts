@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { StanfordSleepinessData } from '../../app/data/stanford-sleepiness-data';
+import { format, parseISO } from 'date-fns';
 
 @Component({
   selector: 'app-tab3',
@@ -17,9 +18,8 @@ export class Tab3Page {
   storeLevel:number=0;
 
   enterSleepiness={content:"",level:0};
-  dateTime: Date = new Date();
-  newDateTime: Date = new Date();
-
+  dateTime= format(new Date(),'yyyy-MM-dd');
+  newDateTime= format(new Date(),'yyyy-MM-dd');
   // enterSleepiness= new StanfordSleepinessData(1, this.date);
 
   options=[
