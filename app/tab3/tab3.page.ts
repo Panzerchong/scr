@@ -18,14 +18,9 @@ export class Tab3Page {
   storeLevel:number=0;
   enterSleepiness={content:"",level:0};
 
+  dateTime= format(new Date(),'yyyy-MM-dd')+'T09:00:00.000Z';
   newDateTime= format(new Date(),'yyyy-MM-dd')+'T09:00:00.000Z';
-  dateTime:Date=new Date('1990-12-20');
 
-
-
-  // dateTime= format(new Date(),'yyyy-MM-dd')+'T09:00:00.000Z';
-  // newDateTime= format(new Date(),'yyyy-MM-dd')+'T09:00:00.000Z';
-  // enterSleepiness= new StanfordSleepinessData(1, this.date);
   sleepinessArray: StanfordSleepinessData[];
 
   options=[
