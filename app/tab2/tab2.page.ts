@@ -103,24 +103,40 @@ export class Tab2Page {
     console.log("Bed Time: " + this.formattedBedTime);
     console.log("Wake Up Time: " + this.formattedWakeUp);
 
+    var startDay = new Date(this.dateValue);
+    var startDay_ms = startDay.getTime();
+
+    var endDay = new Date(this.endDateValue);
+    var endDay_ms = endDay.getTime();
+
+    var diffDay = endDay_ms - startDay_ms;
+
+    var hour_day = Math.floor(diffDay / (1000*60*60));
+    var minutes_day = Math.floor(diffDay / (1000*60) % 60);
+
     var sleepTime = new Date(this.bedTimeValue);
     var slepTime_ms = sleepTime.getTime();
 
     var waketime = new Date(this.wakeUpTimeValue);
     var waketime_ms = waketime.getTime();
 
-    var diff = waketime_ms - slepTime_ms;
+    var diffTime = waketime_ms - slepTime_ms;
 
-    var hour = Math.floor(diff / (1000*60*60));
-    var minutes = Math.floor(diff / (1000*60) % 60);
-    console.log("Different Time " + diff);
+    var hour = Math.floor(diffTime / (1000*60*60));
+    var minutes = Math.floor(diffTime / (1000*60) % 60);
+
+    var total_hour = hour_day + hour;
+    var total_minutes = minutes_day + minutes;
+    console.log("Different Time " + diffTime);
+    console.log("Diff " + diffDay);
     let oneDay = "From " + this.formattedString + " to " + this.formattedEndDay 
-                 + "\n" + hour + " hour " + minutes + " minutes";
+                 + " \nSleep Duration: " + total_hour + " hour " + total_minutes + " minutes";
     
     this.overnightArray.push(oneDay);
     //this.overnightArray.push(this.formattedEndDay);
     
     this.recentOvernight= this.overnightArray[this.overnightArray.length-1]; 
+    console.log("length " +  this.overnightArray.length);
   }
 }
 
