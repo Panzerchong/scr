@@ -20,12 +20,11 @@
 
                   <ion-card color="secondary" *ngFor = "let item of sleepinessArray; let i = index">
                     <ion-card-header>
-                    <ion-card-subtitle value="Sleepiness log" class="ion-text-center">{{item.getDate()}}</ion-card-subtitle>
+                    <ion-card-subtitle value="Sleepiness log" class="ion-text-center">{{item.dateString()}}</ion-card-subtitle>
                     <ion-card-title>{{item.summaryString()}}</ion-card-title>
                   </ion-card-header>
                     <ion-card-content>{{item.getComment()}}</ion-card-content>
                   </ion-card>
-
 
               </ion-content>
             </ng-template>

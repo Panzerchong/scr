@@ -27,12 +27,6 @@ export class StanfordSleepinessData extends SleepData {
 		return this.loggedValue + ": " + StanfordSleepinessData.ScaleValues[this.loggedValue];
 	}
 
-	getDate():string{
-		let newDateTime=new Date(this.loggedAt);
-		let currentDate=newDateTime.toString().substring(4,21);
-		return currentDate;
-	}
-
 	getComment():string{
 		return this.loggedComment;
 	}
