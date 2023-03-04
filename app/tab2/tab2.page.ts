@@ -21,9 +21,12 @@ export class Tab2Page {
   endDateValue =format(new Date(),'yyyy-MM-dd');
   wakeUpTimeValue =format(new Date(),'yyyy-MM-dd');
 
-  
+  isModalOpen = false;
   overnightArray: String[];
   recentOvernight: String;
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+  }
   constructor() {
     this.setToday();
     this.setBedTime();
