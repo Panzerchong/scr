@@ -25,13 +25,7 @@ export class Tab3Page {
   isModalOpen = false;
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
-
-    if(this.sleepinessArray.length==0){
-      this.currentLevel="";
-      this.currentDate="";
-      this.storeSleepiness="Sleepiness record"
-      this.comment="";
-    }
+    this.currentRecord();
   }
 
   options=[
@@ -58,20 +52,15 @@ export class Tab3Page {
   onClick(){
     this.comment=this.enterComment;
     this.storeSleepiness=this.enterSleepiness.content;
-    this.storeLevel=this.enterSleepiness.level;
+    //this.storeLevel=this.enterSleepiness.level;
     let newDateTime=new Date(this.dateTime);
     
-    this.currentLevel=this.storeLevel.toString()+": ";
-    this.currentDate=newDateTime.toString().substring(4,21)
+    //this.currentLevel=this.storeLevel.toString()+": ";
+    //this.currentDate=newDateTime.toString().substring(4,21)
     
-    this.sleepinessArray.push(new StanfordSleepinessData(this.comment,this.enterSleepiness.level,newDateTime));
+    this.sleepinessArray.push(new StanfordSleepinessData(this.enterComment,this.enterSleepiness.level,newDateTime));
 
-    if(this.sleepinessArray.length==0){
-      this.currentLevel="";
-      this.currentDate="";
-      this.storeSleepiness="No data yet!"
-      this.comment="";
-    }
+    this.currentRecord();
     // console.log(this.newDateTime)
   }
 
@@ -79,6 +68,18 @@ export class Tab3Page {
     this.sleepinessArray.splice(index,1);
   }
 
-
-  
+  currentRecord(){
+    if(this.sleepinessArray.length==0){
+      this.currentLevel="";
+      this.currentDate="";
+      this.storeSleepiness="Sleepiness record"
+      this.comment="";
+    }
+    else{
+      let currentLength=this.sleepinessArray.length;
+      this.currentDate=this.sleepinessArray[currentLength-1].dateString();
+      this.comment=this.sleepinessArray[currentLength-1].getComment();
+      this.storeSleepiness=this.sleepinessArray[currentLength-1].summaryString();
+    }
+  }
 }
