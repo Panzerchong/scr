@@ -10,15 +10,7 @@ const routes: Routes = [
     path: 'tab2',
     loadChildren: () => import('./tab2/tab2.module').then(m => m.Tab2PageModule)
   },
-  {
-    path: '',
-    redirectTo: 'tab2',
-    pathMatch: 'full'
-  },
-  {
-    path: 'most-recent',
-    loadChildren: () => import('./pages/most-recent/most-recent.module').then( m => m.MostRecentPageModule)
-  }
+ 
 ];
 @NgModule({
   imports: [
