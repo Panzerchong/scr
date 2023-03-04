@@ -13,8 +13,8 @@ export class StanfordSleepinessData extends SleepData {
 	'Sleepy, woozy, fighting sleep; prefer to lie down', //6
 	'No longer fighting sleep, sleep onset soon; having dream-like thoughts']; //7
 
-	loggedValue:number;
-	loggedComment:string;
+	private loggedValue:number;
+	private loggedComment:string;
 
 	constructor(loggedComment:string,loggedValue:number, loggedAt:Date = new Date()) {
 		super();
@@ -26,4 +26,15 @@ export class StanfordSleepinessData extends SleepData {
 	override summaryString():string {
 		return this.loggedValue + ": " + StanfordSleepinessData.ScaleValues[this.loggedValue];
 	}
+
+	getDate():string{
+		let newDateTime=new Date(this.loggedAt);
+		let currentDate=newDateTime.toString().substring(4,21);
+		return currentDate;
+	}
+
+	getComment():string{
+		return this.loggedComment;
+	}
+
 }

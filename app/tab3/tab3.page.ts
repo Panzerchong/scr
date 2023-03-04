@@ -24,6 +24,11 @@ export class Tab3Page {
 
   sleepinessArray: StanfordSleepinessData[];
 
+  isModalOpen = false;
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+  }
+
   options=[
     {content: "Feeling active and vital",
     level: "1"},
@@ -56,9 +61,19 @@ export class Tab3Page {
     this.currentDate=newDateTime.toString().substring(4,21)
     
     this.sleepinessArray.push(new StanfordSleepinessData(this.comment,this.enterSleepiness.level,newDateTime));
-    console.log(this.storeSleepiness)
-    console.log(this.sleepinessArray[0].loggedComment)
     // console.log(this.newDateTime)
   }
+
+
+  getLevel(){
+
+  }
+
+
+
+  test(){
+    console.log("*************")
+  }
+
 
 }
