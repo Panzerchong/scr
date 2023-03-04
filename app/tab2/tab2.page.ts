@@ -141,5 +141,11 @@ export class Tab2Page {
     this.recentOvernight= this.overnightArray[this.overnightArray.length-1]; 
     console.log("length " +  this.overnightArray.length);
   }
+  deleteLog(index:number){
+    console.log("works " + index);
+    var removeArr = this.overnightArray.splice(index,1);
+    console.log(" The removed element from the given array is: " + removeArr);
+    console.log(this.overnightArray.length);
+  }
 }
 

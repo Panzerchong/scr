@@ -4,4 +4,14 @@ https://www.youtube.com/watch?v=iq_XIPml9_M
 
 https://forum.ionicframework.com/t/datetime-in-ionic/66025
 
+https://www.tutorialsteacher.com/typescript/typescript-if-else
+
+https://www.9lessons.info/2019/11/ionic-angular-update-delete-rxjs.html
+
+https://ionicframework.com/docs/api/card
+
+https://date-fns.org/docs/format
+
+https://ionicframework.com/docs/api/nav
+
 testone

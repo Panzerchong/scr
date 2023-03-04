@@ -22,7 +22,13 @@
       </ion-header>
       <ion-content class="ion-padding">
         <p>
-          <ion-card color="dark" *ngFor = "let recent of overnightArray">
+          <ion-card color="dark" *ngFor = "let recent of overnightArray; let i = index">
+            <ion-button expand="full"  color="dark" class ="right" (click)="deleteLog(i)">
+            
+              <ion-icon  name="trash"></ion-icon>
+            </ion-button>
+
+      
             <ion-card-header>
               <ion-card-title>Log Sleep</ion-card-title>
               <ion-card-subtitle>{{recent}}</ion-card-subtitle>
