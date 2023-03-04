@@ -77,7 +77,7 @@ export class Tab3Page {
 
   deleteItem(index:number){
 
-    let temp=this.sleepinessArray.slice(index,1);
+    let temp=this.sleepinessArray.splice(index,1);
     console.log(this.sleepinessArray.length);
     console.log(index);
   }
