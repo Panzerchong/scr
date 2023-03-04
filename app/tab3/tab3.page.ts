@@ -8,13 +8,11 @@ import { format, parseISO } from 'date-fns';
   styleUrls: ['tab3.page.scss']
 })
 
-
-
 export class Tab3Page {
 
   enterComment: string="";
   comment: string="";
-  storeSleepiness: string="";
+  storeSleepiness: string="Sleepiness record";
   storeLevel:number=0;
   enterSleepiness={content:"",level:0};
   dateTime= format(new Date(),'yyyy-MM-dd')+'T08:00:00.000Z';
@@ -27,6 +25,13 @@ export class Tab3Page {
   isModalOpen = false;
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
+
+    if(this.sleepinessArray.length==0){
+      this.currentLevel="";
+      this.currentDate="";
+      this.storeSleepiness="Sleepiness record"
+      this.comment="";
+    }
   }
 
   options=[
@@ -56,16 +61,17 @@ export class Tab3Page {
     this.storeLevel=this.enterSleepiness.level;
     let newDateTime=new Date(this.dateTime);
     
-    // this.currentLevel=this.storeLevel.toString()+": ";
-    // this.currentDate=newDateTime.toString().substring(4,21)
+    this.currentLevel=this.storeLevel.toString()+": ";
+    this.currentDate=newDateTime.toString().substring(4,21)
     
     this.sleepinessArray.push(new StanfordSleepinessData(this.comment,this.enterSleepiness.level,newDateTime));
 
-    if(!this.sleepinessArray){
-      console.log("han qiu");
+    if(this.sleepinessArray.length==0){
+      this.currentLevel="";
+      this.currentDate="";
+      this.storeSleepiness="No data yet!"
+      this.comment="";
     }
-
-
     // console.log(this.newDateTime)
   }
 
