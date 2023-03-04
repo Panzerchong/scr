@@ -111,8 +111,11 @@ export class Tab2Page {
 
     var endDay = new Date(this.endDateValue);
     var endDay_ms = endDay.getTime();
-
     var diffDay = endDay_ms - startDay_ms;
+    if(diffDay < 0){
+      diffDay = 0;
+    }
+   
 
     var hour_day = Math.floor(diffDay / (1000*60*60));
     var minutes_day = Math.floor(diffDay / (1000*60) % 60);
