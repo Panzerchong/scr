@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { StanfordSleepinessData } from '../../app/data/stanford-sleepiness-data';
-import { format, parseISO } from 'date-fns';
+import { format} from 'date-fns';
 
 @Component({
   selector: 'app-tab3',
@@ -76,7 +76,8 @@ export class Tab3Page {
   }
 
   deleteItem(index:number){
-    this.sleepinessArray.slice(index,1);
+
+    let temp=this.sleepinessArray.slice(index,1);
     console.log(this.sleepinessArray.length);
     console.log(index);
   }
