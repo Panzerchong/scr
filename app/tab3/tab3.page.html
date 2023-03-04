@@ -18,12 +18,17 @@
               </ion-header>
               <ion-content class="ion-padding">
 
-                  <ion-card color="secondary" *ngFor = "let item of sleepinessArray; let i = index">
+                  <ion-card *ngFor = "let item of sleepinessArray; let i = index">
                     <ion-card-header>
                     <ion-card-subtitle value="Sleepiness log" class="ion-text-center">{{item.dateString()}}</ion-card-subtitle>
                     <ion-card-title>{{item.summaryString()}}</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>{{item.getComment()}}</ion-card-content>
+                    <ion-card-content>
+                      <ion-buttons slot="end">
+                        <ion-button color="danger" (click)="deleteItem(i)">Delete</ion-button>
+                      </ion-buttons>
+                    </ion-card-content>
                   </ion-card>
 
               </ion-content>

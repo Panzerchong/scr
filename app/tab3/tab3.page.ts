@@ -75,4 +75,10 @@ export class Tab3Page {
     // console.log(this.newDateTime)
   }
 
+  deleteItem(index:number){
+    this.sleepinessArray.slice(index,1);
+    console.log(this.sleepinessArray.length);
+    console.log(index);
+  }
+
 }
