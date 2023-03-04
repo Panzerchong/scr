@@ -48,7 +48,6 @@ export class Tab3Page {
 
   constructor() {
     this.sleepinessArray=[];
-
   }
 
   onClick(){
@@ -57,23 +56,17 @@ export class Tab3Page {
     this.storeLevel=this.enterSleepiness.level;
     let newDateTime=new Date(this.dateTime);
     
-    this.currentLevel=this.storeLevel.toString()+": ";
-    this.currentDate=newDateTime.toString().substring(4,21)
+    // this.currentLevel=this.storeLevel.toString()+": ";
+    // this.currentDate=newDateTime.toString().substring(4,21)
     
     this.sleepinessArray.push(new StanfordSleepinessData(this.comment,this.enterSleepiness.level,newDateTime));
+
+    if(!this.sleepinessArray){
+      console.log("han qiu");
+    }
+
+
     // console.log(this.newDateTime)
   }
-
-
-  getLevel(){
-
-  }
-
-
-
-  test(){
-    console.log("*************")
-  }
-
 
 }
