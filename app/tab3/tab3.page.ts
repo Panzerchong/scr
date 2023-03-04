@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { StanfordSleepinessData } from '../../app/data/stanford-sleepiness-data';
-import { format, parseISO } from 'date-fns';
+import { format} from 'date-fns';
 
 @Component({
   selector: 'app-tab3',
@@ -8,13 +8,11 @@ import { format, parseISO } from 'date-fns';
   styleUrls: ['tab3.page.scss']
 })
 
-
-
 export class Tab3Page {
 
   enterComment: string="";
   comment: string="";
-  storeSleepiness: string="";
+  storeSleepiness: string="Sleepiness record";
   storeLevel:number=0;
   enterSleepiness={content:"",level:0};
   dateTime= format(new Date(),'yyyy-MM-dd')+'T08:00:00.000Z';
@@ -23,6 +21,12 @@ export class Tab3Page {
   currentLevel:string="";
 
   sleepinessArray: StanfordSleepinessData[];
+
+  isModalOpen = false;
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+    this.currentRecord();
+  }
 
   options=[
     {content: "Feeling active and vital",
@@ -43,22 +47,39 @@ export class Tab3Page {
 
   constructor() {
     this.sleepinessArray=[];
-
   }
 
   onClick(){
     this.comment=this.enterComment;
     this.storeSleepiness=this.enterSleepiness.content;
-    this.storeLevel=this.enterSleepiness.level;
+    //this.storeLevel=this.enterSleepiness.level;
     let newDateTime=new Date(this.dateTime);
     
-    this.currentLevel=this.storeLevel.toString()+": ";
-    this.currentDate=newDateTime.toString().substring(4,21)
+    //this.currentLevel=this.storeLevel.toString()+": ";
+    //this.currentDate=newDateTime.toString().substring(4,21)
     
-    this.sleepinessArray.push(new StanfordSleepinessData(this.comment,this.enterSleepiness.level,newDateTime));
-    console.log(this.storeSleepiness)
-    console.log(this.sleepinessArray[0].loggedComment)
+    this.sleepinessArray.push(new StanfordSleepinessData(this.enterComment,this.enterSleepiness.level,newDateTime));
+
+    this.currentRecord();
     // console.log(this.newDateTime)
   }
 
+  deleteItem(index:number){
+    this.sleepinessArray.splice(index,1);
+  }
+
+  currentRecord(){
+    if(this.sleepinessArray.length==0){
+      this.currentLevel="";
+      this.currentDate="";
+      this.storeSleepiness="Sleepiness record"
+      this.comment="";
+    }
+    else{
+      let currentLength=this.sleepinessArray.length;
+      this.currentDate=this.sleepinessArray[currentLength-1].dateString();
+      this.comment=this.sleepinessArray[currentLength-1].getComment();
+      this.storeSleepiness=this.sleepinessArray[currentLength-1].summaryString();
+    }
+  }
 }

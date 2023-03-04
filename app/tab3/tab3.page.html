@@ -1,8 +1,42 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Record Your Sleepiness
-    </ion-title>
+    <ion-grid [fixed]="true">
+      <ion-row>
+        <ion-col> <ion-title>Sleepiness Record</ion-title></ion-col>
+        <ion-col ></ion-col>
+        <ion-col >
+          <ion-button expand="block" (click)="setOpen(true)">History</ion-button>
+          <ion-modal [isOpen]="isModalOpen">
+            <ng-template>
+              <ion-header>
+                <ion-toolbar>
+                  <ion-title>History</ion-title>
+                  <ion-buttons slot="end">
+                    <ion-button (click)="setOpen(false)">Close</ion-button>
+                  </ion-buttons>
+                </ion-toolbar>
+              </ion-header>
+              <ion-content class="ion-padding">
+
+                  <ion-card *ngFor = "let item of sleepinessArray; let i = index">
+                    <ion-card-header>
+                    <ion-card-subtitle value="Sleepiness log" class="ion-text-center">{{item.dateString()}}</ion-card-subtitle>
+                    <ion-card-title>{{item.summaryString()}}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>{{item.getComment()}}</ion-card-content>
+                    <ion-card-content>
+                      <ion-buttons slot="end">
+                        <ion-button color="danger" (click)="deleteItem(i)">Delete</ion-button>
+                      </ion-buttons>
+                    </ion-card-content>
+                  </ion-card>
+
+              </ion-content>
+            </ng-template>
+          </ion-modal>
+        </ion-col>
+      </ion-row>
+    </ion-grid> 
   </ion-toolbar>
 </ion-header>
 
@@ -37,7 +71,7 @@
   <ion-card color="primary">
     <ion-card-header>
     <ion-card-subtitle value="Sleepiness log" class="ion-text-center">{{currentDate}}</ion-card-subtitle>
-    <ion-card-title>{{currentLevel}} {{storeSleepiness}}</ion-card-title>
+    <ion-card-title>{{storeSleepiness}}</ion-card-title>
   </ion-card-header>
     <ion-card-content>{{comment}}</ion-card-content>
     
