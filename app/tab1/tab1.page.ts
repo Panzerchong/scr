@@ -1,6 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { Tab2Page } from '../../app/tab2/tab2.page';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { OvernightSleepData  } from '../../app/data/overnight-sleep-data';
+import { SleepService } from '../../app/services/sleep.service';
 // import { Chart } from 'chart.js';
 @Component({
   selector: 'app-tab1',
@@ -10,25 +14,31 @@ import { Tab2Page } from '../../app/tab2/tab2.page';
 export class Tab1Page{
   @ViewChild('barChart') barChart;
 
+  id:any;
   bars: any;
   colorArray: any;
-  //tab2 = new Tab2Page;
-  durationHourArr:number[];
+  data:any;
+  durationHourArr:Tab2Page[];
   count:number = 0;
-  constructor() { 
+  private loggedDuration:number;
+  overnightSleepDataArray: OvernightSleepData[];
+  constructor(private sleepService:SleepService) { 
+    
     this.durationHourArr = [];
-
+    //this.loggedDuration = loggedDuration;
+    this.overnightSleepDataArray = SleepService.AllOvernightData;;
+   
   }
 
+
   ionViewDidEnter() {
-    this.createBarChart();
-    
+    this.createBarChart();  
+    console.log("Over " + this.overnightSleepDataArray);
   }
 
   createBarChart() {
-    console.log("Tabe 1 Duration hour: " + this.durationHourArr.length);  
-    console.log("Count : " + this.count++); 
-    this.durationHourArr.push(this.count);
+    
+    
     if(this.bars !=null){
       this.bars.clear();
       this.bars.destroy();
