@@ -1,160 +1,87 @@
 
+<!-- display day and time -->
 
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Overnight Sleep Tracker
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-<!-- recent sleeping page and loop for recording log sleep -->
-<ion-content class="ion-padding">
-  <ion-button (click)="setOpen(true)">Recent sleeping</ion-button>
-  <ion-modal [isOpen]="isModalOpen">
+<ion-list>
+  <!-- start day -->
+  <ion-item id="StartDay">
+    <ion-label>Start Day</ion-label>
+    <ion-note slot="end">{{startdateValue | date}}</ion-note>
+  </ion-item>
+  <ion-modal trigger="StartDay" [cssClass]="'center'">
     <ng-template>
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Recent sleeping record</ion-title>
-          <ion-buttons slot="end">
-            <ion-button (click)="setOpen(false)">Close</ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content class="ion-padding">
-        <p>
-          <ion-card color="dark" *ngFor = "let recent of overnightArray; let i = index">
-            <ion-button expand="full"  color="dark" class ="right" (click)="deleteLog(i)">
-            
-              <ion-icon  name="trash"></ion-icon>
-            </ion-button>
-
-      
-            <ion-card-header>
-              <ion-card-title>Log Sleep</ion-card-title>
-              
-              <ion-card-subtitle>{{recent}}</ion-card-subtitle>
-            </ion-card-header>
-          </ion-card>
-        </p>
-      </ion-content>
+      <ion-datetime
+        #datetime
+        presentation="date"
+        [(ngModel)]="startdateValue"
+        (ionChange)="startDateChanged(datetime.value)"
+        size="cover"
+        [showDefaultButtons]="true"
+      ></ion-datetime>
     </ng-template>
   </ion-modal>
-  <ion-card color="dark">
-    <ion-card-header>
-      <ion-card-title>Log Sleep</ion-card-title>
-      
-      <ion-card-subtitle>{{this.overnightArray[this.overnightArray.length-1]}}</ion-card-subtitle>
-    </ion-card-header>
-  </ion-card>
-</ion-content>
+<!-- bed time -->
+  <ion-item id="BedTime">
+    <ion-label>Bed Time</ion-label>
+    <ion-note slot="end">{{startdateValue | date: 'HH:mm'}}</ion-note>
+  </ion-item>
+  <ion-modal trigger="BedTime" [cssClass]="'bottom-end'">
+    <ng-template>
+      <ion-datetime
+      #datetime
+        presentation="time"
+        [(ngModel)]="startdateValue"
+        (ionChange)="startDateChanged(datetime.value)"
+        size="cover"
+        [showDefaultButtons]="true"
+      ></ion-datetime>
+    </ng-template>
+  </ion-modal>
+  <!-- End day -->
+  <ion-item id="EndDay">
+    <ion-label>End Day</ion-label>
+    <ion-note slot="end">{{enddateValue | date}}</ion-note>
+  </ion-item>
+  <ion-modal trigger="EndDay" [cssClass]="'center'">
+    <ng-template>
+      <ion-datetime
+        #EndDay
+        presentation="date"
+        [(ngModel)]="enddateValue"
+        [min] = "startdateValue"
+        (ionChange)="endDateChanged(EndDay.value)"
+        size="cover"
+        [showDefaultButtons]="true"
+      ></ion-datetime>
+    </ng-template>
+  </ion-modal>
+  <!-- Wake Up -->
+  <ion-item id="WakeUp">
+    <ion-label>Wake Up</ion-label>
+    <ion-note slot="end">{{enddateValue | date: 'HH:mm'}}</ion-note>
+  </ion-item>
+  <ion-modal trigger="WakeUp" [cssClass]="'bottom-end'">
+    <ng-template>
+      <ion-datetime *ngIf="isDateSame"
+        #EndDay
+        presentation="time"
+        [(ngModel)]="enddateValue"
+        [min] = "startdateValue"
+        (ionChange)="endDateChanged(EndDay.value)"
+        size="cover"
+        [showDefaultButtons]="true"
+      ></ion-datetime>
 
-<!-- display day and time -->
-<ion-content>
-  
-  <ion-accordion-group >
-    <ion-accordion value="StartDay" >
-      <ion-item slot="header" color="light" (click)= "showPicker = !false">
-       <ion-label>Start Day</ion-label>
-            <ion-text slot="end">
-              {{formattedString}}
-            </ion-text>
-      </ion-item>
-      <div class="ion-padding" slot="content">
-        <ion-datetime *ngIf="showPicker"
-            #datetime
-            [value]="dateValue" size ="cover"
-            (ionChange)="dateChanged(datetime.value)"
-            presentation="date"
-            [showDefaultButtons]="true"
-            (ionCancel) = "showPicker = false">
-        
-          </ion-datetime>
-      </div>
-    </ion-accordion>
-  
-    <ion-accordion value="BedTime" >
-      <ion-item slot="header" color="light" (click)= "showPicker = !false">
-       <ion-label>Bed Time</ion-label>
-            <ion-text slot="end">
-              {{formattedBedTime}}
-            </ion-text>
-      </ion-item>
-      <div class="ion-padding" slot="content">
-        <ion-datetime *ngIf="showPicker"
-          #bedtime
-          [value]="bedTimeValue" size ="cover"
-          (ionChange)="timeChanged(bedtime.value)"
-          presentation="time"
-          [showDefaultButtons]="true"
-          (ionCancel) = "showPicker = false">
-  
-        </ion-datetime>
-      </div>
-    </ion-accordion>
-  
-    <ion-accordion value="EndDay" >
-      <ion-item slot="header" color="light" (click)= "showPicker = !false">
-       <ion-label>End Day</ion-label>
-            <ion-text slot="end">
-              {{formattedEndDay}}
-            </ion-text>
-      </ion-item>
-      <div class="ion-padding" slot="content">
-        <ion-datetime *ngIf="showPicker"
-          #EndDay
-          [value]="endDateValue" size ="cover"
-          [min] = "dateValue"
-          (ionChange)="endDateChanged(EndDay.value)"
-          presentation="date"
-          [showDefaultButtons]="true"
-          (ionCancel) = "showPicker = false">
-  
-        </ion-datetime>
-      </div>
-    </ion-accordion>
-  
-    <ion-accordion value="WakeUp" >
-      <ion-item slot="header" color="light" (click)= "showPicker = !false">
-       <ion-label>Wake Up Time</ion-label>
-            <ion-text slot="end">
-              {{formattedWakeUp}}
-            </ion-text>
-      </ion-item>
-      <div class="ion-padding" slot="content">
-        <ion-datetime *ngIf="showPicker && isDateSame"
-          #WakeUp
-          [value]="wakeUpTimeValue" size ="cover"
-          [min] = "bedTimeValue"
-          (ionChange)="wakeUpTimeChanged(WakeUp.value)"
-          presentation="time"
-          [showDefaultButtons]="true"
-          (ionCancel) = "showPicker = false">
-  
-        </ion-datetime>
-        <ion-datetime *ngIf="showPicker && isDateSame == false"
-          #WakeUp
-          [value]="wakeUpTimeValue" size ="cover"
-          (ionChange)="wakeUpTimeChanged(WakeUp.value)"
-          presentation="time"
-          [showDefaultButtons]="true"
-          (ionCancel) = "showPicker = false">
-  
-        </ion-datetime>
-      </div>
-    </ion-accordion>
-    
-  </ion-accordion-group>
-
-  <ion-button expand="block" (click)="addDateClicked()">
-    Save
-    <ion-icon slot="start" name="moon-outline"></ion-icon>
-  </ion-button>
-
-  
-</ion-content>
-
-
-
+      <ion-datetime *ngIf="isDateSame == false"
+        #EndDay
+        presentation="time"
+        [(ngModel)]="enddateValue"
+        (ionChange)="endDateChanged(EndDay.value)"
+        size="cover"
+        [showDefaultButtons]="true"
+    ></ion-datetime>
+    </ng-template>
+  </ion-modal>
+</ion-list>
 
 
 

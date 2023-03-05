@@ -34,6 +34,7 @@ export class Tab1Page implements OnInit{
   segmentChanged(ele:any){
     console.log('Segment changed', ele);
     console.log("event.detail.value: " + ele.detail.value);
+    console.log("Array " + this.overnightSleepDataArray.length)
     if(ele.detail.value=="Sleep") {
       console.log("show sleep data!");
       this.showSleepDataCards = true; 
