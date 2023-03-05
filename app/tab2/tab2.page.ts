@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { format, parseISO } from 'date-fns';
 import { SleepService } from '../../app/services/sleep.service';
 import { OvernightSleepData  } from '../../app/data/overnight-sleep-data';
+import { Tab1Page } from '../../app/tab1/tab1.page';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -24,6 +25,11 @@ export class Tab2Page {
   isModalOpen = false;
   overnightArray: String[];
   recentOvernight: String;
+  durationArr:number[];
+
+  tab1 = new Tab1Page;
+
+ 
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
   }
@@ -34,6 +40,8 @@ export class Tab2Page {
     this.setWakeUp();
     
     this.overnightArray = new Array;
+    this.durationArr = new Array;
+    this.tab1.durationHourArr =[];
     this.recentOvernight= this.overnightArray[this.overnightArray.length-1]; 
     console.log(this.overnightArray.length);
     
@@ -127,7 +135,9 @@ export class Tab2Page {
     var waketime_ms = waketime.getTime();
 
     var diffTime = waketime_ms - slepTime_ms;
-
+    if(diffTime < 0){
+      diffTime = 0;
+    }
     var hour = Math.floor(diffTime / (1000*60*60));
     var minutes = Math.floor(diffTime / (1000*60) % 60);
 
@@ -138,6 +148,11 @@ export class Tab2Page {
     let oneDay = "From " + this.formattedString + " to " + this.formattedEndDay 
                  + " \nSleep Duration: " + total_hour + " hour " + total_minutes + " minutes";
     
+    var duration_hour =  total_hour+ total_minutes/60;  
+    this.tab1.durationHourArr.push(duration_hour);    
+ 
+  
+    console.log("Duration hour: " + this.tab1.durationHourArr);     
     this.overnightArray.push(oneDay);
     //this.overnightArray.push(this.formattedEndDay);
     
