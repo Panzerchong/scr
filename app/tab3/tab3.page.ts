@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { StanfordSleepinessData } from '../../app/data/stanford-sleepiness-data';
 import { format} from 'date-fns';
+import { SleepService } from '../services/sleep.service';
 
 @Component({
   selector: 'app-tab3',
@@ -45,8 +46,12 @@ export class Tab3Page {
     level: "7"}
   ];
 
-  constructor() {
+  constructor(private sleepService:SleepService) {
     this.sleepinessArray=[];
+  }
+
+  ngOnItit(){
+    this.sleepinessArray=SleepService.AllSleepinessData;
   }
 
   onClick(){
