@@ -1,87 +1,143 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-grid [fixed]="true">
+      <ion-row>
+        <ion-col> <ion-title>Sleepiness Record</ion-title></ion-col>
+        <ion-col ></ion-col>
+        <ion-col >
+          <ion-button expand="block" (click)="setOpen(true)">Recent Log</ion-button>
+          <ion-modal [isOpen]="isModalOpen">
+            <ng-template>
+              <ion-header>
+                <ion-toolbar>
+                  <ion-title>Recent Log</ion-title>
+                  <ion-buttons slot="end">
+                    <ion-button (click)="setOpen(false)">Close</ion-button>
+                  </ion-buttons>
+                </ion-toolbar>
+              </ion-header>
+              <ion-content class="ion-padding">
+
+                <ion-card *ngFor = "let item of overnightArray; let i = index">
+                  <ion-card-header>
+                  <ion-card-subtitle value="Log Sleep" class="ion-text-center">{{item.dateString()}}</ion-card-subtitle>
+                  <ion-card-title>{{item.summaryString()}}</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <ion-buttons slot="end">
+                      <ion-button color="danger" (click)="deleteLog(i)">Delete</ion-button>
+                    </ion-buttons>
+                  </ion-card-content>
+                </ion-card>
+
+            </ion-content>
+          </ng-template>
+        </ion-modal>
+      </ion-col>
+    </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card color="primary">
+    <ion-card-header>
+      <ion-card-title>Log Sleep</ion-card-title>
+      <ion-card-subtitle>{{currentDate}}</ion-card-subtitle>
+      <ion-card-subtitle>{{diffDuration}}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+</ion-content>
 
 <!-- display day and time -->
-
-<ion-list>
-  <!-- start day -->
-  <ion-item id="StartDay">
-    <ion-label>Start Day</ion-label>
-    <ion-note slot="end">{{startdateValue | date}}</ion-note>
-  </ion-item>
-  <ion-modal trigger="StartDay" [cssClass]="'center'">
-    <ng-template>
-      <ion-datetime
+<ion-content>
+  <ion-list>
+    <!-- start day -->
+    <ion-item id="StartDay">
+      <ion-label>Start Day</ion-label>
+      <ion-note slot="end">{{startdateValue | date}}</ion-note>
+    </ion-item>
+    <ion-modal trigger="StartDay" [cssClass]="'center'">
+      <ng-template>
+        <ion-datetime
+          #datetime
+          presentation="date"
+          [(ngModel)]="startdateValue"
+          (ionChange)="startDateChanged(datetime.value)"
+          size="cover"
+          [showDefaultButtons]="true"
+        ></ion-datetime>
+      </ng-template>
+    </ion-modal>
+  <!-- bed time -->
+    <ion-item id="BedTime">
+      <ion-label>Bed Time</ion-label>
+      <ion-note slot="end">{{startdateValue | date: 'HH:mm'}}</ion-note>
+    </ion-item>
+    <ion-modal trigger="BedTime" [cssClass]="'bottom-end'">
+      <ng-template>
+        <ion-datetime
         #datetime
-        presentation="date"
-        [(ngModel)]="startdateValue"
-        (ionChange)="startDateChanged(datetime.value)"
-        size="cover"
-        [showDefaultButtons]="true"
+          presentation="time"
+          [(ngModel)]="startdateValue"
+          (ionChange)="startDateChanged(datetime.value)"
+          size="cover"
+          [showDefaultButtons]="true"
+        ></ion-datetime>
+      </ng-template>
+    </ion-modal>
+    <!-- End day -->
+    <ion-item id="EndDay">
+      <ion-label>End Day</ion-label>
+      <ion-note slot="end">{{enddateValue | date}}</ion-note>
+    </ion-item>
+    <ion-modal trigger="EndDay" [cssClass]="'center'">
+      <ng-template>
+        <ion-datetime
+          #EndDay
+          presentation="date"
+          [(ngModel)]="enddateValue"
+          [min] = "startdateValue"
+          (ionChange)="endDateChanged(EndDay.value)"
+          size="cover"
+          [showDefaultButtons]="true"
+        ></ion-datetime>
+      </ng-template>
+    </ion-modal>
+    <!-- Wake Up -->
+    <ion-item id="WakeUp">
+      <ion-label>Wake Up</ion-label>
+      <ion-note slot="end">{{enddateValue | date: 'HH:mm'}}</ion-note>
+    </ion-item>
+    <ion-modal trigger="WakeUp" [cssClass]="'bottom-end'">
+      <ng-template>
+        <ion-datetime *ngIf="isDateSame"
+          #EndDay
+          presentation="time"
+          [(ngModel)]="enddateValue"
+          [min] = "startdateValue"
+          (ionChange)="endDateChanged(EndDay.value)"
+          size="cover"
+          [showDefaultButtons]="true"
+        ></ion-datetime>
+  
+        <ion-datetime *ngIf="isDateSame == false"
+          #EndDay
+          presentation="time"
+          [(ngModel)]="enddateValue"
+          (ionChange)="endDateChanged(EndDay.value)"
+          size="cover"
+          [showDefaultButtons]="true"
       ></ion-datetime>
-    </ng-template>
-  </ion-modal>
-<!-- bed time -->
-  <ion-item id="BedTime">
-    <ion-label>Bed Time</ion-label>
-    <ion-note slot="end">{{startdateValue | date: 'HH:mm'}}</ion-note>
-  </ion-item>
-  <ion-modal trigger="BedTime" [cssClass]="'bottom-end'">
-    <ng-template>
-      <ion-datetime
-      #datetime
-        presentation="time"
-        [(ngModel)]="startdateValue"
-        (ionChange)="startDateChanged(datetime.value)"
-        size="cover"
-        [showDefaultButtons]="true"
-      ></ion-datetime>
-    </ng-template>
-  </ion-modal>
-  <!-- End day -->
-  <ion-item id="EndDay">
-    <ion-label>End Day</ion-label>
-    <ion-note slot="end">{{enddateValue | date}}</ion-note>
-  </ion-item>
-  <ion-modal trigger="EndDay" [cssClass]="'center'">
-    <ng-template>
-      <ion-datetime
-        #EndDay
-        presentation="date"
-        [(ngModel)]="enddateValue"
-        [min] = "startdateValue"
-        (ionChange)="endDateChanged(EndDay.value)"
-        size="cover"
-        [showDefaultButtons]="true"
-      ></ion-datetime>
-    </ng-template>
-  </ion-modal>
-  <!-- Wake Up -->
-  <ion-item id="WakeUp">
-    <ion-label>Wake Up</ion-label>
-    <ion-note slot="end">{{enddateValue | date: 'HH:mm'}}</ion-note>
-  </ion-item>
-  <ion-modal trigger="WakeUp" [cssClass]="'bottom-end'">
-    <ng-template>
-      <ion-datetime *ngIf="isDateSame"
-        #EndDay
-        presentation="time"
-        [(ngModel)]="enddateValue"
-        [min] = "startdateValue"
-        (ionChange)="endDateChanged(EndDay.value)"
-        size="cover"
-        [showDefaultButtons]="true"
-      ></ion-datetime>
+      </ng-template>
+    </ion-modal>
+    <ion-button expand="block" (click)="addDateClicked()">
+      Save
+      <ion-icon slot="start" name="add-circle"></ion-icon>
+    </ion-button>
+  </ion-list>
+</ion-content>
 
-      <ion-datetime *ngIf="isDateSame == false"
-        #EndDay
-        presentation="time"
-        [(ngModel)]="enddateValue"
-        (ionChange)="endDateChanged(EndDay.value)"
-        size="cover"
-        [showDefaultButtons]="true"
-    ></ion-datetime>
-    </ng-template>
-  </ion-modal>
-</ion-list>
 
 
 

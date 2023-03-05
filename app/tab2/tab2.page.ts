@@ -1,35 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { format, parseISO } from 'date-fns';
 import { SleepService } from '../../app/services/sleep.service';
 import { OvernightSleepData  } from '../../app/data/overnight-sleep-data';
-import { Tab1Page } from '../../app/tab1/tab1.page';
-import { NavController } from '@ionic/angular';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
-export class Tab2Page {
+export class Tab2Page implements OnInit {
 
 
   isDateSame = false;
-  overnightArray: String[];
+  
   recentOvernight: String;
 
-  testovernightArray:OvernightSleepData[];
+  overnightArray:OvernightSleepData[];
  
   startdateValue = new Date().toISOString();
   enddateValue = new Date().toISOString();
   formattedStartDay = '';
   formattedEndDay = this.formattedStartDay;
-  
+  currentDate:string="";
+  diffDuration:String="";
+
+  isModalOpen = false;
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+    this.currentRecord();
+  }
+
   constructor(private sleepService:SleepService) {
     
   }
   ngOnInit() {
-    this.testovernightArray =SleepService.AllOvernightData;
+    this.overnightArray =SleepService.AllOvernightData;
     console.log("Start date " + this.startdateValue);
     console.log("End date " + this.enddateValue);
   }
@@ -64,11 +69,33 @@ export class Tab2Page {
       this.isDateSame = false;
     }
   }
-  // deleteLog(index:number){
-  //   console.log("works " + index);
-  //   var removeArr = this.overnightArray.splice(index,1);
-  //   console.log(" The removed element from the given array is: " + removeArr);
-  //   console.log(this.overnightArray.length);
-  // }
+  addDateClicked(){
+    let newStartDate = new Date(this.startdateValue);
+    console.log("New start Day: " + newStartDate);
+    let newEndDate = new Date(this.enddateValue);
+    console.log("New End Day: " + newEndDate);
+
+    this.overnightArray.push(new OvernightSleepData(newStartDate,newEndDate));
+    this.currentRecord();
+  }
+  deleteLog(index:number){
+    console.log("works " + index);
+    var removeArr = this.overnightArray.splice(index,1);
+    console.log(" The removed element from the given array is: " + removeArr);
+    console.log(this.overnightArray.length);
+  }
+  currentRecord(){
+    if(this.overnightArray.length==0){
+      this.currentDate = '';
+      this.diffDuration ='';
+    }
+    else{
+      let currentLength=this.overnightArray.length;
+      this.currentDate=this.overnightArray[currentLength-1].dateString();
+      this.diffDuration=this.overnightArray[currentLength-1].summaryString();
+       console.log("Duration " + this.diffDuration);
+       console.log("current Date " + this.currentDate);
+    }
+  }
 }
 
