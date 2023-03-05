@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { StanfordSleepinessData } from '../../app/data/stanford-sleepiness-data';
 import { format} from 'date-fns';
 import { SleepService } from '../services/sleep.service';
@@ -9,7 +9,7 @@ import { SleepService } from '../services/sleep.service';
   styleUrls: ['tab3.page.scss']
 })
 
-export class Tab3Page {
+export class Tab3Page implements OnInit{
 
   enterComment: string="";
   comment: string="";
@@ -50,7 +50,7 @@ export class Tab3Page {
     this.sleepinessArray=[];
   }
 
-  ngOnItit(){
+  ngOnInit(){
     this.sleepinessArray=SleepService.AllSleepinessData;
   }
 
