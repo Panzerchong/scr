@@ -1,23 +1,49 @@
-<!-- <ion-header [translucent]="true">
+<ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Log Overnight Sleep
+      Summary of Data
     </ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-segment value="all" (ionChange)="segmentChanged($event)">
-      
-      <ion-segment-button value="Sleep">
-        Sleep
-         
-      </ion-segment-button>
-      <ion-segment-button value="Sleepiness">
-        Sleepiness
-      </ion-segment-button>
-    </ion-segment>
+    
   </ion-toolbar>
-</ion-header> -->
+</ion-header>
 
+<ion-content>
+  <ion-segment value="all" (ionChange)="segmentChanged($event)" value="Sleep">
+      
+    <ion-segment-button value="Sleep">
+      Sleep
+       
+    </ion-segment-button>
+    <ion-segment-button value="Sleepiness">
+      Sleepiness
+    </ion-segment-button>
+  </ion-segment>
+  <div  *ngIf=showSleepDataCards >
+    <ion-card *ngFor="let item of overnightSleepDataArray">
+      <ion-card-header>
+        <ion-card-subtitle value="Sleepiness log" class="ion-text-center">{{item.dateString()}}</ion-card-subtitle>
+        <ion-card-title>{{item.summaryString()}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>{{item.summaryString()}}<br>
+        
+         
+  
+       
+        </ion-card-content>
+    </ion-card>
+  </div>
+  <div  *ngIf=showSleepinessDataCards >
+    <ion-card *ngFor="let item of sleepinessDataArray">
+      <ion-card-header>
+        <ion-card-subtitle value="Sleepiness log" class="ion-text-center">{{item.dateString()}}</ion-card-subtitle>
+        <ion-card-title>{{item.summaryString()}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>{{item.getComment()}}</ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
 <!-- <ion-content [fullscreen]="true">
   <canvas #lineChart style="position: relative; height: 20vh;width: 40vw;"></canvas>
 </ion-content> -->
@@ -53,25 +79,8 @@
  
     
     
-  
-<ion-content>
-  <ion-list-header color="light">Vertical Bar Chart</ion-list-header>
-  <ion-card class="welcome-card">
-    <ion-card-header>
-      <ion-card-subtitle>A week of sleeing recording</ion-card-subtitle>
-      <ion-card-title>Sleep Record</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <canvas #barChart></canvas>
-    </ion-card-content>
-  </ion-card>
-</ion-content>
 
-  <ion-content>
-    <h3>
-      {{data}}
-    </h3>
-  </ion-content>
+
   
 
 

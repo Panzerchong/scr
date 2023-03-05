@@ -43,7 +43,7 @@ export class Tab2Page {
     this.isModalOpen = isOpen;
   }
   
-  constructor() {
+  constructor(private sleepService:SleepService) {
     this.setToday();
     this.setBedTime();
     this.setEndDay();
@@ -58,12 +58,17 @@ export class Tab2Page {
    
     
   }
-
+  ngOnInit() {
+    this.testovernightArray =SleepService.AllOvernightData;
+  }
   setToday(){
     this.formattedString = format(parseISO(format(new Date(),'yyyy-MM-dd')), 'MMM d, yyyy');
+    //this.showPicker = true;
+    console.log("SET TODAY " + this.dateValue);
   }
   setBedTime(){
     this.formattedBedTime = format(parseISO(format(new Date(),'yyyy-MM-dd')), 'HH:mm aaa');
+    console.log("SET bed " + this.bedTimeValue);
   }
   setEndDay(){
     this.formattedEndDay = format(parseISO(format(new Date(),'yyyy-MM-dd')), 'MMM d, yyyy');
@@ -77,7 +82,7 @@ export class Tab2Page {
     this.formattedString = format(parseISO(value),'MMM d, yyyy');
     this.showPicker = true; 
     this.formattedEndDay = this.formattedString;
-    console.log(this.formattedString)
+    
     if(this.formattedEndDay == this.formattedString){
       console.log("Same day");
       this.isDateSame = true;
@@ -95,6 +100,13 @@ export class Tab2Page {
     this.showPicker = true;
     this.formattedWakeUp = this.formattedBedTime;
     console.log("kkk" + this.formattedBedTime)
+    if(this.dateValue == this.endDateValue){
+      console.log("Same day");
+      this.isDateSame = true;
+    }else{
+      console.log("not Same day");
+      this.isDateSame = false;
+    }
    
   
   }
