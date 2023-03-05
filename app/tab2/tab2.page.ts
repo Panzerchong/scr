@@ -25,10 +25,10 @@ export class Tab2Page {
 
 
   isDateSame = false;
-  dateValue = format(new Date(),'yyyy-MM-dd')+'T00:00:00.000Z';
-  bedTimeValue =format(new Date(),'yyyy-MM-dd')+ 'T00:00:00.000Z';
-  endDateValue =format(new Date(),'yyyy-MM-dd') + 'T00:00:00.000Z';
-  wakeUpTimeValue =format(new Date(),'yyyy-MM-dd') + 'T00:00:00.000Z';
+  dateValue = format(new Date(),'yyyy-MM-dd');
+  bedTimeValue =format(new Date(),'yyyy-MM-dd');
+  endDateValue =format(new Date(),'yyyy-MM-dd');
+  wakeUpTimeValue =format(new Date(),'yyyy-MM-dd');
 
   isModalOpen = false;
   overnightArray: String[];
@@ -73,7 +73,7 @@ export class Tab2Page {
   }
   dateChanged(value: any){
     this.dateValue = value;
-    this.bedTimeValue = this.dateValue;
+    //this.bedTimeValue = this.dateValue;
     this.formattedString = format(parseISO(value),'MMM d, yyyy');
     this.showPicker = true; 
     this.formattedEndDay = this.formattedString;
@@ -90,6 +90,7 @@ export class Tab2Page {
   
   timeChanged(ele: any){
     this.bedTimeValue = ele;
+    //this.dateValue = this.bedTimeValue;
     this.formattedBedTime = format(parseISO(ele),'HH:mm aaa');
     this.showPicker = true;
     this.formattedWakeUp = this.formattedBedTime;
@@ -99,7 +100,7 @@ export class Tab2Page {
   }
   endDateChanged(value: any){
     this.endDateValue = value;
-    this.wakeUpTimeValue = this.endDateValue;
+    //this.wakeUpTimeValue = this.endDateValue;
     this.formattedEndDay = format(parseISO(value),'MMM d, yyyy');
     this.showPicker = true; 
     if(this.dateValue == this.endDateValue){
@@ -124,9 +125,9 @@ export class Tab2Page {
   addDateClicked(){
     console.log("Start Day: " + this.dateValue);
     console.log("End Day: " + this.endDateValue);
-    console.log("Bed Time: " + this.formattedBedTime);
+    console.log("Bed Time: " + this.bedTimeValue);
     console.log("Wake Up Time: " + this.wakeUpTimeValue);
-
+    //this.bedTimeValue = this.dateValue;
     var startDay = new Date(this.dateValue);
     var startDay_ms = startDay.getTime();
     
@@ -152,7 +153,7 @@ export class Tab2Page {
     var waketime = new Date(this.wakeUpTimeValue);
     var waketime_ms = waketime.getTime();
     //OvernigthSleepData Array contains start-day-time and end-day-time together
-    
+
     this.testovernightArray.push(new OvernightSleepData(sleepTime,waketime));
     let currentLength= this.testovernightArray.length;
     console.log("testoverNight " + this.testovernightArray[currentLength-1].dateString());
@@ -176,11 +177,7 @@ export class Tab2Page {
     let oneDay = "From " + this.formattedString + " to " + this.formattedEndDay 
                  + " \nSleep Duration: " + total_hour + " hour " + total_minutes + " minutes";
     
-    var duration_hour =  total_hour+ total_minutes/60;  
-    
-    
-    
-    console.log("Duration hour: " + this.durationArr);     
+      
     this.overnightArray.push(oneDay);
     //this.overnightArray.push(this.formattedEndDay);
     

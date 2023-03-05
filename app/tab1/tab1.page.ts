@@ -20,20 +20,20 @@ export class Tab1Page{
   data:any;
   durationHourArr:Tab2Page[];
   count:number = 0;
-  private loggedDuration:number;
+ 
   overnightSleepDataArray: OvernightSleepData[];
   constructor(private sleepService:SleepService) { 
     
     this.durationHourArr = [];
     //this.loggedDuration = loggedDuration;
-    this.overnightSleepDataArray = SleepService.AllOvernightData;;
+    this.overnightSleepDataArray = SleepService.AllOvernightData;
    
   }
 
 
   ionViewDidEnter() {
     this.createBarChart();  
-    console.log("Over " + this.overnightSleepDataArray);
+    console.log("Over " + this.overnightSleepDataArray[0].dateString());
   }
 
   createBarChart() {
