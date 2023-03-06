@@ -5,28 +5,32 @@
     </ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    
+    <ion-segment value="all" (ionChange)="segmentChanged($event)" value="Sleep">
+      
+      <ion-segment-button value="Sleep">
+        Sleep    
+      </ion-segment-button>
+      <ion-segment-button value="Sleepiness">
+        Sleepiness
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-segment value="all" (ionChange)="segmentChanged($event)" value="Sleep">
-      
-    <ion-segment-button value="Sleep">
-      Sleep
-    
-       
-    </ion-segment-button>
-    <ion-segment-button value="Sleepiness">
-      Sleepiness
-    </ion-segment-button>
-  </ion-segment>
+ 
   <ion-col>
   
     <div  *ngIf=showSleepDataCards >
+      
       <ion-col>
         <ion-button  (click)="setOpen(true)">View All Sleep Logs</ion-button>
       </ion-col>
+      
+      
+
+
+
       <ion-modal [isOpen]="isModalOpen">
         <ng-template>
           <ion-header>
@@ -49,9 +53,10 @@
             </ion-card>
           </ion-content>
         </ng-template>
-      </ion-modal>
-      
+      </ion-modal>    
     </div>
+
+      <!--  Sleepiness -->
 
     <div  *ngIf=showSleepinessDataCards >
       <ion-col>
@@ -82,7 +87,7 @@
       
     </div>
   </ion-col>
-  <ion-content >
+  <!-- <ion-content >
     <ion-list-header color="light">Summary of Sleep</ion-list-header>
     <ion-card class="welcome-card">
       <ion-card-header>
@@ -93,18 +98,33 @@
         <canvas  id="Sleep" #barChart></canvas>
       </ion-card-content>
     </ion-card>
-  </ion-content>
+  </ion-content> -->
+  <ion-col>
+    <ion-list-header color="light">Summary of Sleep</ion-list-header>
+    <ion-card class="welcome-card">
+      <ion-card-header>
+        <ion-card-subtitle>7 days record </ion-card-subtitle>
+        <ion-card-title>Summary of Sleep</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #barCanvas style="position: relative; height:20vh; width:40vw"></canvas>
+      </ion-card-content>
+    </ion-card>
+    <ion-list-header color="light">Summary of Sleepiness</ion-list-header>
+    <ion-card class="welcome-card">
+      <ion-card-header>
+        <ion-card-subtitle>7 Types of Sleepiness </ion-card-subtitle>
+        <ion-card-title>Summary of Sleepiness</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #doughnutCanvas style="position: relative; height:20vh; width:40vw"></canvas>
+      </ion-card-content>
+    </ion-card>
+</ion-col>
 </ion-content>
 
 
 
 
-
- 
-    
-    
-
-
-  
 
 
