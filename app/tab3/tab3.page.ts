@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StanfordSleepinessData } from '../../app/data/stanford-sleepiness-data';
 import { format} from 'date-fns';
 import { SleepService } from '../services/sleep.service';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-tab3',
@@ -22,13 +23,7 @@ export class Tab3Page implements OnInit{
   currentLevel:string="";
 
   sleepinessArray: StanfordSleepinessData[];
-
-  isModalOpen = false;
-  setOpen(isOpen: boolean) {
-    this.isModalOpen = isOpen;
-    this.currentRecord();
-  }
-
+ 
   options=[
     {content: "Feeling active and vital",
     level: "1"},
@@ -46,15 +41,29 @@ export class Tab3Page implements OnInit{
     level: "7"}
   ];
 
-  constructor(private sleepService:SleepService) {
+  constructor(private sleepService:SleepService, private StorageService:StorageService) {
     this.sleepinessArray=[];
+    this.loadData();
+  }
+
+  isModalOpen = false;
+  setOpen(isOpen: boolean) {
+    this.loadData;
+    this.currentRecord();
+    this.isModalOpen = isOpen;
   }
 
   ngOnInit(){
+    this.loadData();
     this.sleepinessArray=SleepService.AllSleepinessData;
+
   }
 
-  onClick(){
+  async loadData(){
+    this.sleepinessArray=await this.StorageService.getData();
+  }
+
+  async onClick(){
     this.comment=this.enterComment;
     this.storeSleepiness=this.enterSleepiness.content;
     //this.storeLevel=this.enterSleepiness.level;
@@ -63,23 +72,22 @@ export class Tab3Page implements OnInit{
     //this.currentLevel=this.storeLevel.toString()+": ";
     //this.currentDate=newDateTime.toString().substring(4,21)
     
-    this.sleepinessArray.push(new StanfordSleepinessData(this.enterComment,this.enterSleepiness.level,newDateTime));
+    //this.sleepinessArray.push(new StanfordSleepinessData(this.enterComment,this.enterSleepiness.level,newDateTime));
 
-    this.currentRecord();
-    // console.log(this.newDateTime)
-  }
+    await this.StorageService.addData(new StanfordSleepinessData(this.enterComment,this.enterSleepiness.level,newDateTime));
+    this.loadData;
 
-  deleteItem(index:number){
-    // let check = confirm("Please confirm to delete this record?");
-    // if (check) {
-    
-    // }
+    //this.currentRecord();
 
-    this.sleepinessArray.splice(index,1);
+    let js=JSON.stringify(this.sleepinessArray[0]);
+    let test=JSON.parse(js);
+    console.log(test.summaryString());
+
+
   }
 
   currentRecord(){
-    if(this.sleepinessArray.length==0){
+    if(this.sleepinessArray !=null&&this.sleepinessArray.length<1){
       this.currentLevel="";
       this.currentDate="";
       this.storeSleepiness="Sleepiness record"
@@ -87,9 +95,65 @@ export class Tab3Page implements OnInit{
     }
     else{
       let currentLength=this.sleepinessArray.length;
-      this.currentDate=this.sleepinessArray[currentLength-1].dateString();
-      this.comment=this.sleepinessArray[currentLength-1].getComment();
-      this.storeSleepiness=this.sleepinessArray[currentLength-1].summaryString();
+      //this.currentDate=this.sleepinessArray[currentLength-1].dateString();
+      // this.comment=this.sleepinessArray[currentLength-1].getComment();
+      // this.storeSleepiness=this.sleepinessArray[currentLength-1].summaryString();
+      this.comment=this.sleepinessArray[currentLength-1].loggedComment;
+      this.storeSleepiness=this.comment;
+      this.currentDate=this.comment;
+
+      console.log(currentLength);
     }
+
+    
+    
+
   }
+
+
+  async deleteItem(index:number){
+    // let check = confirm("Please confirm to delete this record?");
+    // if (check) {
+    
+    // }
+    this.StorageService.removeItem(index);
+    this.loadData();
+  }
+
+
+
+
+
+
+
+
+  // onClick(){
+  //   this.comment=this.enterComment;
+  //   this.storeSleepiness=this.enterSleepiness.content;
+  //   //this.storeLevel=this.enterSleepiness.level;
+  //   let newDateTime=new Date(this.dateTime);
+    
+  //   //this.currentLevel=this.storeLevel.toString()+": ";
+  //   //this.currentDate=newDateTime.toString().substring(4,21)
+    
+  //   this.sleepinessArray.push(new StanfordSleepinessData(this.enterComment,this.enterSleepiness.level,newDateTime));
+
+  //   this.currentRecord();
+  //   // console.log(this.newDateTime)
+  // }
+
+  // deleteItem(index:number){
+  //   // let check = confirm("Please confirm to delete this record?");
+  //   // if (check) {
+    
+  //   // }
+
+  //   this.sleepinessArray.splice(index,1);
+  // }
+
+
+
+
+
+  
 }

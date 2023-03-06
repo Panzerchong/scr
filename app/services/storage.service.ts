@@ -17,7 +17,10 @@ export class StorageService {
     this.init();
   }
 
-  init(){this.storage.create();}
+  async init(){
+    await this.storage.create();
+    console.log("start service")
+  }
   
 
   getData(){
@@ -25,8 +28,10 @@ export class StorageService {
   }
 
   async addData(item){
+    console.log("add data")
     const storedData=await this.storage.get(STORAGE_KEY)||[];
     storedData.push(item);
+    console.log("what is   "+item);
     return this.storage.set(STORAGE_KEY,storedData);
   }
 
