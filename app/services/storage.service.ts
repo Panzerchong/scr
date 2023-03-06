@@ -1,41 +1,62 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Preferences, SetOptions, GetOptions, RemoveOptions, KeysResult } from '@capacitor/preferences';
+import { StanfordSleepinessData } from '../../app/data/stanford-sleepiness-data';
+import { OvernightSleepData } from '../data/overnight-sleep-data';
+import { Storage } from '@ionic/storage-angular';
+
+
+const STORAGE_KEY='mylist'
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
-  @Output() allKeysList = new EventEmitter<string[]>();
-  @Output() allValuesList = new EventEmitter<string[]>();
-  list:string[] = [];
+  public static sleepinessRecord:StanfordSleepinessData[] = [];
 
-  constructor() { }
-
-  getKeys = async () => {
-    await Preferences.keys().then((keys) => {
-      this.allKeysList.emit(keys.keys);
-      this.list = keys.keys;
-      return keys;
-    })
+  constructor(private storage: Storage) {
+    this.init();
   }
 
-  deleteTask = async (key:string) => {
-    let options: RemoveOptions = {
-      key: key
-    };
-    await Preferences.remove(options).then(() => {
-      // console.log("deleted");
-    })
+  init(){this.storage.create();}
+  
+
+  getData(){
+    return this.storage.get(STORAGE_KEY)||[];
   }
 
-  addTask = async (task:string) => {
-    let taskTimeID = (Date.now()).toString();
-    let options: SetOptions = {
-      key: task,
-      value: taskTimeID
-    };
-    await Preferences.set(options).then(()=> {
-      // console.log("set new task: " + task);
-    })
+  async addData(item){
+    const storedData=await this.storage.get(STORAGE_KEY)||[];
+    storedData.push(item);
+    return this.storage.set(STORAGE_KEY,storedData);
   }
+
+  async removeItem(index){
+    const storedData=await this.storage.get(STORAGE_KEY)||[];
+    storedData.splice(index,1);
+    return this.storage.set(STORAGE_KEY,storedData);
+  }
+
+
+
+
+
+
+
+
+    // public logSleepinessData(sleepData:StanfordSleepinessData) {
+
+  
+    //   StorageService.sleepinessRecord.push(sleepData);
+    //   //Ionic Storage
+    //   this.sleepinessStorage.set(sleepData.id, sleepData);
+    // }
+    
+    // public getAllSleepinessDataFromStorage(){
+    //   StorageService.sleepinessRecord.forEach( (element) => {
+    //     this.sleepinessStorage.get(element.id).then( (value) => {
+    //       console.log(value);
+    //     });
+    //   });
+    // }
+    
 }
