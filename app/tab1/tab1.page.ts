@@ -95,15 +95,12 @@ export class Tab1Page implements OnInit{
 
       for(k in this.overnightSleepDataArray)
       {
-         //var tech  =      this.technologies.technologies[k];
-
          let convert = this.duration.push(this.overnightSleepDataArray[k].summaryDuration());
 
          console.log("duration " + this.overnightSleepDataArray[k].summaryDuration());
          console.log("Duration array " + this.duration);
       }
      
-      //document.write(d.getTime() + " milliseconds since 1970/01/01");
    }
    
 }
