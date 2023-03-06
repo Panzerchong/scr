@@ -14,68 +14,91 @@
       
     <ion-segment-button value="Sleep">
       Sleep
+    
        
     </ion-segment-button>
     <ion-segment-button value="Sleepiness">
       Sleepiness
     </ion-segment-button>
   </ion-segment>
-  <div  *ngIf=showSleepDataCards >
-    <ion-card *ngFor="let item of overnightSleepDataArray">
-      <ion-card-header>
-        <ion-card-subtitle value="Sleepiness log" class="ion-text-center">{{item.dateString()}}</ion-card-subtitle>
-        <ion-card-title>{{item.summaryString()}}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>{{item.summaryString()}}<br>
-        
+  <ion-col>
+  
+    <div  *ngIf=showSleepDataCards >
+      <ion-col>
+        <ion-button  (click)="setOpen(true)">View All Sleep Logs</ion-button>
+      </ion-col>
+      <ion-modal [isOpen]="isModalOpen">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>All Sleep Logs</ion-title>
+              <ion-buttons slot="end">
+                <ion-button (click)="setOpen(false)">Close</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
          
-  
-       
-        </ion-card-content>
-    </ion-card>
-  </div>
-  <div  *ngIf=showSleepinessDataCards >
-    <ion-card *ngFor="let item of sleepinessDataArray">
+          <ion-content>
+            <ion-card *ngFor="let item of overnightSleepDataArray">
+              <ion-card-header>
+                <ion-card-subtitle value="Sleepiness log" class="ion-text-center">{{item.dateString()}}</ion-card-subtitle>
+                <ion-card-title>{{item.summaryString()}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>{{item.summaryString()}}<br>   
+                </ion-card-content>
+            </ion-card>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+      
+    </div>
+
+    <div  *ngIf=showSleepinessDataCards >
+      <ion-col>
+        <ion-button  (click)="setOpen(true)">View All Sleepiness Data</ion-button>
+      </ion-col>
+      <ion-modal [isOpen]="isModalOpen">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>All Sleepiness Data</ion-title>
+              <ion-buttons slot="end">
+                <ion-button (click)="setOpen(false)">Close</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          
+          <ion-content>
+            <ion-card *ngFor="let item of sleepinessDataArray">
+              <ion-card-header>
+                <ion-card-subtitle value="Sleepiness log" class="ion-text-center">{{item.dateString()}}</ion-card-subtitle>
+                <ion-card-title>{{item.summaryString()}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>{{item.getComment()}}</ion-card-content>
+            </ion-card>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+      
+    </div>
+  </ion-col>
+  <ion-content >
+    <ion-list-header color="light">Summary of Sleep</ion-list-header>
+    <ion-card class="welcome-card">
       <ion-card-header>
-        <ion-card-subtitle value="Sleepiness log" class="ion-text-center">{{item.dateString()}}</ion-card-subtitle>
-        <ion-card-title>{{item.summaryString()}}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>{{item.getComment()}}</ion-card-content>
+        <ion-card-subtitle>7 days record </ion-card-subtitle>
+        <ion-card-title>Summary of Sleep</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <canvas  id="Sleep" #barChart></canvas>
+      </ion-card-content>
     </ion-card>
-  </div>
-  
-</ion-content>
-<!-- <ion-content [fullscreen]="true">
-  <canvas #lineChart style="position: relative; height: 20vh;width: 40vw;"></canvas>
-</ion-content> -->
-
-<!-- <div class="chart-container">
-  <canvas  id="MyChart" >{{ chart }}</canvas>
-</div> -->
-
-
-<!-- <ion-content>
-  <ion-card *ngIf="selectedSegment == 'Sleep'">   
-   
-    <ion-card-header>
-      <ion-card-title>Log Sleep</ion-card-title>
-      <ion-card-subtitle>ss</ion-card-subtitle>
-    </ion-card-header>
-   
-  </ion-card>
- 
-  <ion-card *ngIf="selectedSegment == 'Sleepiness'">
-    <ion-card-header>
-      <ion-card-title>Log Sleepiness</ion-card-title>
-      <ion-card-subtitle>ss</ion-card-subtitle>
-    </ion-card-header>
-    
-  </ion-card>
-  
+  </ion-content>
 </ion-content>
 
-<canvas  id="Sleep" width="600" height="400"></canvas>
-<canvas  id="Sleepiness" width="600" height="400"></canvas> -->
+
+
+
 
  
     

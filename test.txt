@@ -16,4 +16,5 @@ https://ionicframework.com/docs/api/nav
 https://www.chartjs.org/docs/latest/getting-started/usage.html
 https://enappd.com/blog/charts-in-ionic-4-apps-and-pwa-part-1/52/
 https://www.freecodecamp.org/news/how-to-make-bar-and-line-charts-using-chartjs-in-angular/
+https://toexpert.dev/ionic-6-datetime-picker-examples/
 testone
