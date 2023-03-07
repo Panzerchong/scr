@@ -60,25 +60,5 @@ export class StorageService {
     )
   }
 
-
-
-
-
-
-    // public logSleepinessData(sleepData:StanfordSleepinessData) {
-
-  
-    //   StorageService.sleepinessRecord.push(sleepData);
-    //   //Ionic Storage
-    //   this.sleepinessStorage.set(sleepData.id, sleepData);
-    // }
-    
-    // public getAllSleepinessDataFromStorage(){
-    //   StorageService.sleepinessRecord.forEach( (element) => {
-    //     this.sleepinessStorage.get(element.id).then( (value) => {
-    //       console.log(value);
-    //     });
-    //   });
-    // }
     
 }
