@@ -141,3 +141,5 @@ export class Tab3Page implements OnInit{
   //   this.sleepinessArray.splice(index,1);
   // }
 }
+
+

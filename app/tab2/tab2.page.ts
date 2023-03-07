@@ -80,8 +80,12 @@ export class Tab2Page implements OnInit {
   }
   deleteLog(index:number){
     console.log("works " + index);
-    var removeArr = this.overnightArray.splice(index,1);
-    console.log(" The removed element from the given array is: " + removeArr);
+    let check = confirm("Please confirm to delete this record?");
+    if (check) {
+      var removeArr = this.overnightArray.splice(index,1);
+    }
+    
+    //console.log(" The removed element from the given array is: " + removeArr);
     console.log(this.overnightArray.length);
   }
   currentRecord(){
