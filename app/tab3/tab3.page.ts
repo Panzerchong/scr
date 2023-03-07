@@ -24,10 +24,9 @@ export class Tab3Page implements OnInit{
 
   sleepinessArray: StanfordSleepinessData[];
 
-  DataArray: StanfordSleepinessData[];
+  dataSleepinessArray: StanfordSleepinessData[];
   hasData: boolean = false;
 
- 
   options=[
     {content: "Feeling active and vital",
     level: "1"},
@@ -47,23 +46,15 @@ export class Tab3Page implements OnInit{
 
   constructor(private sleepService:SleepService, private StorageService:StorageService) {
     this.sleepinessArray=[];
+    this.dataSleepinessArray=[];
     this.loadData();
+    this.currentRecord();
   }
 
-  // async checkData() {
-  //   const data = await this.StorageService.getData();
-  //   if (data !== null&&data!== undefined) {
-  //     this.hasData = true;
-  //   }
-  //   else{
-  //     this.hasData= false;
-  //   }
-  // }
-
   isModalOpen = false;
-  setOpen(isOpen: boolean) {
+  async setOpen(isOpen: boolean) {
     this.loadData();
-    //this.currentRecord();
+    this.currentRecord();
     this.isModalOpen = isOpen;
   }
 
@@ -73,9 +64,16 @@ export class Tab3Page implements OnInit{
 
   async loadData(){
     this.sleepinessArray=await this.StorageService.getData();
+    this.dataSleepinessArray=[];
+    if(this.sleepinessArray!==null||this.sleepinessArray!==undefined){
+      this.sleepinessArray.forEach(element => {
+        this.dataSleepinessArray.push(new StanfordSleepinessData(element.loggedComment,element.loggedValue,element.loggedAt) )
+      });
+    }
   }
 
   async onClick(){
+    this.currentRecord()
     this.comment=this.enterComment;
     this.storeSleepiness=this.enterSleepiness.content;
     //this.storeLevel=this.enterSleepiness.level;
@@ -87,37 +85,24 @@ export class Tab3Page implements OnInit{
     //this.sleepinessArray.push(new StanfordSleepinessData(this.enterComment,this.enterSleepiness.level,newDateTime));
 
     await this.StorageService.addData(new StanfordSleepinessData(this.enterComment,this.enterSleepiness.level,newDateTime));
-    this.loadData;
-
-
-
-
-    //this.currentRecord();
-
-    // let js=JSON.stringify(this.sleepinessArray[0]);
-    // let test=JSON.parse(js);
-    // console.log(test.summaryString());
-
-
+    this.loadData();
   }
 
   currentRecord(){
-    if(this.sleepinessArray[0].id?.charAt(0)=='undefined'){
+    if(this.dataSleepinessArray.length==0){
       this.currentLevel="";
       this.currentDate="";
       this.storeSleepiness="Sleepiness record"
       this.comment="";
     }
     else{
-      let currentLength=this.sleepinessArray.length;
-      //this.currentDate=this.sleepinessArray[currentLength-1].dateString();
-      // this.comment=this.sleepinessArray[currentLength-1].getComment();
-      // this.storeSleepiness=this.sleepinessArray[currentLength-1].summaryString();
-      this.comment=this.sleepinessArray[currentLength-1].loggedComment;
-      this.storeSleepiness=this.comment;
-      this.currentDate=this.comment;
-
-      console.log(currentLength);
+      let currentLength=this.dataSleepinessArray.length;
+      this.currentDate=this.dataSleepinessArray[currentLength-1].dateString();
+      this.comment=this.dataSleepinessArray[currentLength-1].getComment();
+      this.storeSleepiness=this.dataSleepinessArray[currentLength-1].summaryString();
+      // this.comment=this.sleepinessArray[currentLength-1].loggedComment;
+      // this.storeSleepiness=this.comment;
+      // this.currentDate=this.comment;
     }
   }
 
@@ -129,14 +114,8 @@ export class Tab3Page implements OnInit{
     // }
     this.StorageService.removeItem(index);
     this.sleepinessArray.splice(index,1);
+    this.dataSleepinessArray.splice(index,1);
   }
-
-
-
-
-
-
-
 
   // onClick(){
   //   this.comment=this.enterComment;
@@ -161,10 +140,4 @@ export class Tab3Page implements OnInit{
 
   //   this.sleepinessArray.splice(index,1);
   // }
-
-
-
-
-
-  
 }
