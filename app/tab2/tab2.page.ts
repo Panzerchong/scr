@@ -37,6 +37,7 @@ export class Tab2Page implements OnInit {
   }
   ngOnInit() {
     this.overnightArray =SleepService.AllOvernightData;
+    this.dataOvernightArray =SleepService.AllOvernightData;
   }
 
   async loadData(){
