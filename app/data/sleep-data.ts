@@ -4,6 +4,7 @@ export class SleepData {
 	id:string;
 	loggedAt:Date;
 
+
 	constructor() {
 		//Assign a random (unique) ID. This may be useful for comparison (e.g., are two logged entries the same).
 		this.id = nanoid();

@@ -3,6 +3,7 @@ import { Preferences, SetOptions, GetOptions, RemoveOptions, KeysResult } from '
 import { StanfordSleepinessData } from '../../app/data/stanford-sleepiness-data';
 import { OvernightSleepData } from '../data/overnight-sleep-data';
 import { Storage } from '@ionic/storage-angular';
+import { promises } from 'dns';
 
 
 const STORAGE_KEY='mylist'
@@ -12,9 +13,12 @@ const STORAGE_KEY='mylist'
 })
 export class StorageService {
   public static sleepinessRecord:StanfordSleepinessData[] = [];
+  dataLength:number;
+
 
   constructor(private storage: Storage) {
     this.init();
+    this.HasData();
   }
 
   async init(){
@@ -24,6 +28,8 @@ export class StorageService {
   
 
   getData(){
+
+    console.log(typeof(this.storage.get(STORAGE_KEY)));
     return this.storage.get(STORAGE_KEY)||[];
   }
 
@@ -41,7 +47,19 @@ export class StorageService {
     return this.storage.set(STORAGE_KEY,storedData);
   }
 
-
+  async HasData(){
+    console.log(this.storage.length())
+    const myPromise:Promise<number>=this.storage.length();
+    myPromise.then((result)=>{
+      if(result>0){
+        this.dataLength=10;
+      }
+      else{
+        this.dataLength=0;
+      }
+    }
+    )
+  }
 
 
 

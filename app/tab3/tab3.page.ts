@@ -23,6 +23,10 @@ export class Tab3Page implements OnInit{
   currentLevel:string="";
 
   sleepinessArray: StanfordSleepinessData[];
+
+  DataArray: StanfordSleepinessData[];
+  hasData: boolean = false;
+
  
   options=[
     {content: "Feeling active and vital",
@@ -46,17 +50,25 @@ export class Tab3Page implements OnInit{
     this.loadData();
   }
 
+  // async checkData() {
+  //   const data = await this.StorageService.getData();
+  //   if (data !== null&&data!== undefined) {
+  //     this.hasData = true;
+  //   }
+  //   else{
+  //     this.hasData= false;
+  //   }
+  // }
+
   isModalOpen = false;
   setOpen(isOpen: boolean) {
-    this.loadData;
-    this.currentRecord();
+    this.loadData();
+    //this.currentRecord();
     this.isModalOpen = isOpen;
   }
 
   ngOnInit(){
-    this.loadData();
     this.sleepinessArray=SleepService.AllSleepinessData;
-
   }
 
   async loadData(){
@@ -77,17 +89,20 @@ export class Tab3Page implements OnInit{
     await this.StorageService.addData(new StanfordSleepinessData(this.enterComment,this.enterSleepiness.level,newDateTime));
     this.loadData;
 
+
+
+
     //this.currentRecord();
 
-    let js=JSON.stringify(this.sleepinessArray[0]);
-    let test=JSON.parse(js);
-    console.log(test.summaryString());
+    // let js=JSON.stringify(this.sleepinessArray[0]);
+    // let test=JSON.parse(js);
+    // console.log(test.summaryString());
 
 
   }
 
   currentRecord(){
-    if(this.sleepinessArray !=null&&this.sleepinessArray.length<1){
+    if(this.sleepinessArray[0].id?.charAt(0)=='undefined'){
       this.currentLevel="";
       this.currentDate="";
       this.storeSleepiness="Sleepiness record"
@@ -104,10 +119,6 @@ export class Tab3Page implements OnInit{
 
       console.log(currentLength);
     }
-
-    
-    
-
   }
 
 
@@ -117,7 +128,7 @@ export class Tab3Page implements OnInit{
     
     // }
     this.StorageService.removeItem(index);
-    this.loadData();
+    this.sleepinessArray.splice(index,1);
   }
 
 

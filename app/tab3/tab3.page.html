@@ -20,8 +20,8 @@
 
                   <ion-card *ngFor = "let item of sleepinessArray; let i = index">
                     <ion-card-header>
-                    <ion-card-subtitle value="Sleepiness log" class="ion-text-center">{{item.loggedAt}}</ion-card-subtitle>
-                    <ion-card-title>{{item.loggedComment}}</ion-card-title>
+                    <ion-card-subtitle value="Sleepiness log" class="ion-text-center">{{item.loggedAt.toString().substring(4,21)}}</ion-card-subtitle>
+                    <ion-card-title>{{item.loggedSleepiness}}</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>{{item.loggedComment}}</ion-card-content>
                     <ion-card-content>
