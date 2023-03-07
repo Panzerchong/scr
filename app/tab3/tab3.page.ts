@@ -49,6 +49,7 @@ export class Tab3Page implements OnInit{
     this.dataSleepinessArray=[];
     this.loadData();
     this.currentRecord();
+    
   }
 
   isModalOpen = false;
