@@ -3,6 +3,7 @@ import Chart from 'chart.js/auto';
 import { OvernightSleepData  } from '../../app/data/overnight-sleep-data';
 import { SleepService } from '../../app/services/sleep.service';
 import { StanfordSleepinessData } from '../../app/data/stanford-sleepiness-data';
+import { StorageService } from '../services/storage.service';
 //import { Chart } from 'chart.js';
 @Component({
   selector: 'app-tab1',
@@ -27,13 +28,32 @@ export class Tab1Page implements OnInit{
     this.isModalOpen = isOpen;
    
   }
-  constructor(private sleepService:SleepService) { }
+  constructor(private sleepService:SleepService,private storageService:StorageService) { }
+  async loadData(){
+    let overnightArr =await this.storageService.getSleepData();
+    let sleepinessArray=await this.storageService.getData();
+    this.overnightSleepDataArray =[];
+    this.sleepinessDataArray=[];
+
+    if(sleepinessArray!=null||sleepinessArray!=undefined){
+      sleepinessArray.forEach(element => {
+        this.sleepinessDataArray.push(new StanfordSleepinessData(element.loggedComment,element.loggedValue,element.loggedAt) )
+      });
+    }
+
+    if(overnightArr!=null||overnightArr!=undefined){
+      overnightArr.forEach(element => {
+        this.overnightSleepDataArray.push(new OvernightSleepData(element.sleepStart,element.sleepEnd) )
+      });
+    }
+  }
   ngOnInit(){
     this.showSleepDataCards = true;
     this.overnightSleepDataArray = SleepService.AllOvernightData;
     this.sleepinessDataArray = SleepService.AllSleepinessData;
     this.showSleepinessDataCards = false; 
-
+    this.loadData();
+    
    
   }
   ionViewDidEnter() 
@@ -43,8 +63,8 @@ export class Tab1Page implements OnInit{
      this.defineChartData();
      this.barCharMethod();
    
-     
-     
+     console.log("nihao "+ this.sleepinessDataArray);
+     console.log("overnight "+ this.overnightSleepDataArray);
   }
   barCharMethod(){
     if(this.barChart !=null){
@@ -84,9 +104,9 @@ export class Tab1Page implements OnInit{
   }
 
   segmentChanged(ele:any){
-    // console.log('Segment changed', ele);
-    // console.log("event.detail.value: " + ele.detail.value);
-    // console.log("Array " + this.overnightSleepDataArray.length)
+     console.log('Segment changed', ele);
+    console.log("event.detail.value: " + ele.detail.value);
+     console.log("Array " + this.overnightSleepDataArray.length)
     if(ele.detail.value=="Sleep") {   
       this.showSleepDataCards = true; 
       this.showSleepinessDataCards = false;  
@@ -104,9 +124,11 @@ export class Tab1Page implements OnInit{
       for(k in this.overnightSleepDataArray)
       {
         this.duration.push(this.overnightSleepDataArray[k].summaryDuration());
+        console.log("Sleep  " +this.overnightSleepDataArray[k].dayWeekMonthString());
+        console.log("nihao ");
         console.log("Sleep Log " + this.overnightSleepDataArray[k].summaryString());
       }
-      
+    
    }
    
    
