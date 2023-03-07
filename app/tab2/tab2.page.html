@@ -20,8 +20,8 @@
 
                 <ion-card *ngFor = "let item of overnightArray; let i = index">
                   <ion-card-header>
-                  <ion-card-subtitle value="Log Sleep" class="ion-text-center">{{item.dateString()}}</ion-card-subtitle>
-                  <ion-card-title>{{item.summaryString()}}</ion-card-title>
+                  <ion-card-subtitle value="Log Sleep" class="ion-text-center">{{item.sleepStart}}</ion-card-subtitle>
+                  <ion-card-title>{{item.sleepEnd}}</ion-card-title>
                   </ion-card-header>
                   <ion-card-content>
                     <ion-buttons slot="end">

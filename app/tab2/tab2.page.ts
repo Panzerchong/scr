@@ -11,26 +11,21 @@ import { StorageService } from '../services/storage.service';
 })
 export class Tab2Page implements OnInit {
 
-
   isDateSame = false;
-  
   recentOvernight: String;
-
-  overnightArray:OvernightSleepData[];
- 
+  
   startdateValue = new Date().toISOString();
   enddateValue = new Date().toISOString();
   formattedStartDay = '';
   formattedEndDay = this.formattedStartDay;
   currentDate:string="";
   diffDuration:String="";
-
+  overnightArray:OvernightSleepData[];
   dataOvernightArray:OvernightSleepData[];
 
   
-
   isModalOpen = false;
-  setOpen(isOpen: boolean) {
+  async setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
     this.currentRecord();
   }
@@ -38,12 +33,23 @@ export class Tab2Page implements OnInit {
   constructor(private sleepService:SleepService, private storageService:StorageService) {
     this.overnightArray=[];
     this.dataOvernightArray=[];
+    this.currentRecord();
   }
   ngOnInit() {
     this.overnightArray =SleepService.AllOvernightData;
-    console.log("Start date " + this.startdateValue);
-    console.log("End date " + this.enddateValue);
   }
+
+  async loadData(){
+    this.overnightArray=await this.storageService.getSleepData();
+    this.dataOvernightArray=[];
+    if(this.overnightArray!=null||this.overnightArray!=undefined){
+      this.overnightArray.forEach(element => {
+        this.dataOvernightArray.push(new OvernightSleepData(element.sleepStart,element.sleepEnd) )
+      });
+    }
+  }
+
+
   startDateChanged(value: any){
     this.startdateValue = value;
     this.formattedStartDay = format(parseISO(value),'MMM d, yyyy');
@@ -58,8 +64,9 @@ export class Tab2Page implements OnInit {
       console.log("not Same day");
       this.isDateSame = false;
     }
-  
   }
+
+
   endDateChanged(value: any){
     this.enddateValue = value;
     this.formattedEndDay = format(parseISO(value),'MMM d, yyyy');
@@ -75,37 +82,46 @@ export class Tab2Page implements OnInit {
       this.isDateSame = false;
     }
   }
-  addDateClicked(){
-    let newStartDate = new Date(this.startdateValue);
-    console.log("New start Day: " + newStartDate);
-    let newEndDate = new Date(this.enddateValue);
-    console.log("New End Day: " + newEndDate);
 
-    this.overnightArray.push(new OvernightSleepData(newStartDate,newEndDate));
+
+  async addDateClicked(){
+    let newStartDate = new Date(this.startdateValue);
+    let newEndDate = new Date(this.enddateValue);
+  
+    //this.overnightArray.push(new OvernightSleepData(newStartDate,newEndDate));
+    await this.storageService.addSleepData(new OvernightSleepData(newStartDate,newEndDate));
     this.currentRecord();
   }
+
   deleteLog(index:number){
-    console.log("works " + index);
     let check = confirm("Please confirm to delete this record?");
     if (check) {
-      var removeArr = this.overnightArray.splice(index,1);
+      this.storageService.removeSleepItem(index)
+      this.overnightArray.splice(index,1);
+      this.dataOvernightArray.splice(index,1);
     }
-    
-    //console.log(" The removed element from the given array is: " + removeArr);
-    console.log(this.overnightArray.length);
   }
+
   currentRecord(){
-    if(this.overnightArray.length==0){
+    this.loadData();
+    if(this.dataOvernightArray.length==0){
       this.currentDate = '';
       this.diffDuration ='';
     }
     else{
-      let currentLength=this.overnightArray.length;
-      this.currentDate=this.overnightArray[currentLength-1].dateString();
-      this.diffDuration=this.overnightArray[currentLength-1].summaryString();
+      let currentLength=this.dataOvernightArray.length;
+      this.currentDate=this.dataOvernightArray[currentLength-1].dateString();
+      this.diffDuration=this.dataOvernightArray[currentLength-1].summaryString();
        console.log("Duration " + this.diffDuration);
        console.log("current Date " + this.currentDate);
     }
   }
+
+
+ 
+
+
+
+
 }
 
