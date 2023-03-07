@@ -13,18 +13,17 @@ export class Tab1Page implements OnInit{
   @ViewChild('barCanvas') barCanvas: ElementRef;
   @ViewChild('doughnutCanvas') private doughnutCanvas: ElementRef;
   barChart: any;
-  id:any;
-  lines: any;
   doughnutChart: any;
-  colorArray: any;
   data:any;
   duration:any = [];
   categoris:any=[];
   uniqueCategory:any=[];
-
-  count:number = 0;
+  sleepinessLevelArr:any=[];
+  countValues:any=[];
+  countKeys:any=[];
   arr:any =[];
   sleepniessDate:any=[];
+  countsDate;
   showSleepDataCards: boolean;
   showSleepinessDataCards: boolean;
   overnightSleepDataArray: OvernightSleepData[];
@@ -39,17 +38,19 @@ export class Tab1Page implements OnInit{
     this.showSleepDataCards = true;
     this.overnightSleepDataArray = SleepService.AllOvernightData;
     this.sleepinessDataArray = SleepService.AllSleepinessData;
-    this.showSleepinessDataCards = false;
-    //this.createBarChart();
-    //this.defineChartData();
-    //this.barCharMethod();
-    
+    this.showSleepinessDataCards = false; 
   }
   ionViewDidEnter() 
   {
+     this.sleepinessLevelArr =[];
      this.uniqueCategory =[];
      this.categoris =[];
      this.duration = [];
+     this.countsDate ={};
+     this.arr=[];
+     this.sleepniessDate =[];
+     this.countValues=[];
+     this.countKeys=[];
      this.defineChartData();
      this.barCharMethod();
      this.doughnutChartMethod();
@@ -97,12 +98,12 @@ export class Tab1Page implements OnInit{
       this.doughnutChart.destroy();
     }
     this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
-      type: 'doughnut',
+      type: 'bar',
       data: {
-        labels: this.uniqueCategory,
+        labels: this.countValues,
         datasets: [{
-          label: 'Rating of Sleepiness Scale',
-          data: [1,2,3,4,5,6,7],
+          label: 'Rating of Sleepiness',
+          data: [1,1,1,1,1,1,1,1],
           backgroundColor: [
             'rgba(255, 159, 64, 0.2)',
             'rgba(255, 99, 132, 0.2)',
@@ -127,36 +128,27 @@ export class Tab1Page implements OnInit{
     });
   }
   segmentChanged(ele:any){
-    console.log('Segment changed', ele);
-    console.log("event.detail.value: " + ele.detail.value);
-    console.log("Array " + this.overnightSleepDataArray.length)
-    if(ele.detail.value=="Sleep") {
-      console.log("show sleep data!");
+    // console.log('Segment changed', ele);
+    // console.log("event.detail.value: " + ele.detail.value);
+    // console.log("Array " + this.overnightSleepDataArray.length)
+    if(ele.detail.value=="Sleep") {   
       this.showSleepDataCards = true; 
-      this.showSleepinessDataCards = false;
-      //this.createBarChart();  
-      console.log("created chart");
+      this.showSleepinessDataCards = false;  
  
     } else if (ele.detail.value=="Sleepiness"){
-      
-      
-      
-      console.log("show sleepiness data!");
       this.showSleepDataCards = false;
       this.showSleepinessDataCards = true;
     }
   }
-
+  //display line Chart 
   defineChartData() : void
    {
       let k : any;
 
       for(k in this.overnightSleepDataArray)
       {
-         let convert = this.duration.push(this.overnightSleepDataArray[k].summaryDuration());
+        this.duration.push(this.overnightSleepDataArray[k].summaryDuration());
         
-         console.log("duration " + this.overnightSleepDataArray[k].summaryDuration());
-         console.log("Duration array " + this.duration);
       }
      
    }
@@ -167,24 +159,64 @@ export class Tab1Page implements OnInit{
       for(k in this.sleepinessDataArray)
       {
        
-         let convert = this.categoris.push(this.sleepinessDataArray[k].summaryString());
-         this.sleepniessDate.push(this.sleepinessDataArray[k].dateString())
-
-         console.log("Sleepniess " + this.sleepinessDataArray[k].summaryString());
-         console.log("Categoris array " + this.categoris);
-         console.log("Sleepniess date " + this.sleepinessDataArray[k].dateString());
+         this.categoris.push(this.sleepinessDataArray[k].summaryString());
+         this.sleepniessDate.push(this.sleepinessDataArray[k].dayWeekMonthString())
+         this.sleepinessLevelArr.push(this.sleepinessDataArray[k].loggedValue);
+         //console.log("Sleepniess " + this.sleepinessDataArray[k].summaryString());
+         //console.log("Categoris array " + this.sleepinessDataArray[k].);
+        // console.log("Sleepniess date " + this.sleepinessDataArray[k].dayWeekMonthString());
+         //console.log("Sleepiness level " + this.sleepinessDataArray[k].loggedValue);
          
       }
-      this.arr = this.categoris;
+      this.arr = this.sleepniessDate;
          function removeDuplicates(arr) {
           return arr.filter((item,
               index) => arr.indexOf(item) === index);
         }
         console.log("Removed " + removeDuplicates(this.arr));
        
-      this.uniqueCategory.push(...removeDuplicates(this.arr));
-      this.uniqueCategory.sort();
+        this.uniqueCategory.push(...removeDuplicates(this.arr));
+        //this.uniqueCategory.sort();
         console.log("Removed1111 " + this.uniqueCategory);
+        const map = {
+          'Monday': 1,'Tuesday': 2,'Wednesday': 3,'Thursday': 4,'Friday': 5,'Saturday': 6,
+          'Sunday': 7
+       };
+       this.uniqueCategory.sort((a, b) => {
+          return map[a.day] - map[b.day];
+       });
+        console.log("Sorted " + this.uniqueCategory);
+        const counts ={};
+        this.countsDate = counts;
+        this.sleepniessDate.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
+        console.log(counts)
+        console.log("Keys " + Object.keys(this.countsDate));
+        console.log("values " + Object.values(this.countsDate));
+
+        
+        // Object.keys(counts).map(function (key) {
+         
+        //   // Using Number() to convert key to number type
+        //   // Using obj[key] to retrieve key value
+        //  countValues.push(key);
+        //   return (key);
+        // });
+        // this.countKeys = Object.keys(counts).map(function (key) {
+         
+        // // Using Number() to convert key to number type
+        // // Using obj[key] to retrieve key value
+        // return [String(counts[key])];
+        // });
+        this.countValues.push(Object.values(this.countsDate));
+        this.countKeys.push(Object.keys(this.countsDate));
+
+        //console.log("count Results " + result[0]);
+        //console.log("count Results " + result1);
+      
+        console.log("count Keys " + this.countKeys);
+        console.log("count Keys " + typeof(this.countKeys[1]));
+        console.log("count Values " + this.countValues);
+        console.log("count Values " + (this.countValues[1]));
    }
    
 }

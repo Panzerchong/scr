@@ -70,12 +70,12 @@ export class Tab3Page implements OnInit{
   }
 
   deleteItem(index:number){
-    // let check = confirm("Please confirm to delete this record?");
-    // if (check) {
-    
-    // }
+    let check = confirm("Please confirm to delete this record?");
+    if (check) {
+      this.sleepinessArray.splice(index,1);
+    }
 
-    this.sleepinessArray.splice(index,1);
+    
   }
 
   currentRecord(){
