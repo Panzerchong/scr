@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { format, parseISO } from 'date-fns';
 import { SleepService } from '../../app/services/sleep.service';
 import { OvernightSleepData  } from '../../app/data/overnight-sleep-data';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-tab2',
@@ -24,14 +25,19 @@ export class Tab2Page implements OnInit {
   currentDate:string="";
   diffDuration:String="";
 
+  dataOvernightArray:OvernightSleepData[];
+
+  
+
   isModalOpen = false;
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
     this.currentRecord();
   }
 
-  constructor(private sleepService:SleepService) {
-    
+  constructor(private sleepService:SleepService, private storageService:StorageService) {
+    this.overnightArray=[];
+    this.dataOvernightArray=[];
   }
   ngOnInit() {
     this.overnightArray =SleepService.AllOvernightData;

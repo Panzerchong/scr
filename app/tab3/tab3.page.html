@@ -3,7 +3,10 @@
     <ion-grid [fixed]="true">
       <ion-row>
         <ion-col> <ion-title>Sleepiness Record</ion-title></ion-col>
-        <ion-col ></ion-col>
+        <ion-col >
+          <ion-button expand="block" (click)="loadHistoryData()">Load data</ion-button>
+        </ion-col>
+
         <ion-col >
           <ion-button expand="block" (click)="setOpen(true)">History</ion-button>
           <ion-modal [isOpen]="isModalOpen">

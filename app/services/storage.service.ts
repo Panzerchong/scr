@@ -27,6 +27,8 @@ export class StorageService {
     return this.storage.get(STORAGE_KEY)||[];
   }
 
+
+
   async addData(item){
     const storedData=await this.storage.get(STORAGE_KEY)||[];
     storedData.push(item);
@@ -39,6 +41,23 @@ export class StorageService {
     return this.storage.set(STORAGE_KEY,storedData);
   }
 
+
+
+  getSleepData(){
+    return this.storage.get(SECOND_KEY)||[];
+  }
+
+  async addSleepData(item){
+    const storedData=await this.storage.get(SECOND_KEY)||[];
+    storedData.push(item);
+    return this.storage.set(SECOND_KEY,storedData);
+  }
+
+  async removeSleepItem(index){
+    const storedData=await this.storage.get(SECOND_KEY)||[];
+    storedData.splice(index,1);
+    return this.storage.set(SECOND_KEY,storedData);
+  }
 
 
     

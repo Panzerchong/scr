@@ -49,7 +49,6 @@ export class Tab3Page implements OnInit{
     this.dataSleepinessArray=[];
     this.loadData();
     this.currentRecord();
-    
   }
 
   isModalOpen = false;
@@ -60,7 +59,7 @@ export class Tab3Page implements OnInit{
   }
 
   ngOnInit(){
-    this.sleepinessArray=SleepService.AllSleepinessData;
+    this.dataSleepinessArray=SleepService.AllSleepinessData;
   }
 
   async loadData(){
@@ -73,10 +72,16 @@ export class Tab3Page implements OnInit{
     }
   }
 
+  loadHistoryData(){
+    this.loadData();
+    this.currentRecord();
+  }
+
   async onClick(){
+    this.loadData();
     this.currentRecord()
     this.comment=this.enterComment;
-    this.storeSleepiness=this.enterSleepiness.content;
+    this.storeSleepiness=this.enterSleepiness.level+": "+this.enterSleepiness.content;
     //this.storeLevel=this.enterSleepiness.level;
     let newDateTime=new Date(this.dateTime);
     
@@ -86,7 +91,7 @@ export class Tab3Page implements OnInit{
     //this.sleepinessArray.push(new StanfordSleepinessData(this.enterComment,this.enterSleepiness.level,newDateTime));
 
     await this.StorageService.addData(new StanfordSleepinessData(this.enterComment,this.enterSleepiness.level,newDateTime));
-    this.loadData();
+    
   }
 
   currentRecord(){
