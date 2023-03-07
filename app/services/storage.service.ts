@@ -6,18 +6,15 @@ import { promises } from 'dns';
 
 
 const STORAGE_KEY='mylist'
+const SECOND_KEY='sleepList'
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
-  public static sleepinessRecord:StanfordSleepinessData[] = [];
-  dataLength:number;
-
 
   constructor(private storage: Storage) {
     this.init();
-    this.HasData();
   }
 
   async init(){
@@ -27,16 +24,12 @@ export class StorageService {
   
 
   getData(){
-
-    console.log(typeof(this.storage.get(STORAGE_KEY)));
     return this.storage.get(STORAGE_KEY)||[];
   }
 
   async addData(item){
-    console.log("add data")
     const storedData=await this.storage.get(STORAGE_KEY)||[];
     storedData.push(item);
-    console.log("what is   "+item);
     return this.storage.set(STORAGE_KEY,storedData);
   }
 
@@ -46,19 +39,7 @@ export class StorageService {
     return this.storage.set(STORAGE_KEY,storedData);
   }
 
-  async HasData(){
-    console.log(this.storage.length())
-    const myPromise:Promise<number>=this.storage.length();
-    myPromise.then((result)=>{
-      if(result>0){
-        this.dataLength=10;
-      }
-      else{
-        this.dataLength=0;
-      }
-    }
-    )
-  }
+
 
     
 }
