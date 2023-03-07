@@ -65,7 +65,7 @@ export class Tab3Page implements OnInit{
   async loadData(){
     this.sleepinessArray=await this.StorageService.getData();
     this.dataSleepinessArray=[];
-    if(this.sleepinessArray!==null||this.sleepinessArray!==undefined){
+    if(this.sleepinessArray!=null||this.sleepinessArray!=undefined){
       this.sleepinessArray.forEach(element => {
         this.dataSleepinessArray.push(new StanfordSleepinessData(element.loggedComment,element.loggedValue,element.loggedAt) )
       });
@@ -78,19 +78,22 @@ export class Tab3Page implements OnInit{
   }
 
   async onClick(){
-    this.loadData();
-    this.currentRecord()
+    // this.loadData();
+    // this.currentRecord()
     this.comment=this.enterComment;
     this.storeSleepiness=this.enterSleepiness.level+": "+this.enterSleepiness.content;
-    //this.storeLevel=this.enterSleepiness.level;
     let newDateTime=new Date(this.dateTime);
+    this.currentDate=newDateTime.toString().substring(4,21);
+    await this.StorageService.addData(new StanfordSleepinessData(this.enterComment,this.enterSleepiness.level,newDateTime));
+    //this.storeLevel=this.enterSleepiness.level;
+   
     
     //this.currentLevel=this.storeLevel.toString()+": ";
     //this.currentDate=newDateTime.toString().substring(4,21)
     
     //this.sleepinessArray.push(new StanfordSleepinessData(this.enterComment,this.enterSleepiness.level,newDateTime));
 
-    await this.StorageService.addData(new StanfordSleepinessData(this.enterComment,this.enterSleepiness.level,newDateTime));
+   
     
   }
 
@@ -114,13 +117,12 @@ export class Tab3Page implements OnInit{
 
 
   async deleteItem(index:number){
-    // let check = confirm("Please confirm to delete this record?");
-    // if (check) {
-    
-    // }
-    this.StorageService.removeItem(index);
-    this.sleepinessArray.splice(index,1);
-    this.dataSleepinessArray.splice(index,1);
+    let check = confirm("Please confirm to delete this record?");
+    if (check) {
+      this.StorageService.removeItem(index);
+      this.sleepinessArray.splice(index,1);
+      this.dataSleepinessArray.splice(index,1);
+    }
   }
 
   // onClick(){

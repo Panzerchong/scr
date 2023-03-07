@@ -54,6 +54,7 @@ export class Tab1Page implements OnInit{
     this.showSleepinessDataCards = false; 
     this.loadData();
     
+    
    
   }
   ionViewDidEnter() 
@@ -62,6 +63,7 @@ export class Tab1Page implements OnInit{
      this.duration = [];
      this.defineChartData();
      this.barCharMethod();
+     this.loadData();
    
      console.log("nihao "+ this.sleepinessDataArray);
      console.log("overnight "+ this.overnightSleepDataArray);

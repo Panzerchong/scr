@@ -40,6 +40,10 @@ export class Tab2Page implements OnInit {
     this.dataOvernightArray =SleepService.AllOvernightData;
   }
 
+  loadHistoryData(){
+    this.currentRecord();
+  }
+
   async loadData(){
     this.overnightArray=await this.storageService.getSleepData();
     this.dataOvernightArray=[];
@@ -86,12 +90,18 @@ export class Tab2Page implements OnInit {
 
 
   async addDateClicked(){
+
     let newStartDate = new Date(this.startdateValue);
     let newEndDate = new Date(this.enddateValue);
-  
+    let nightArray:OvernightSleepData[]=[];
+    nightArray.push(new OvernightSleepData(newStartDate,newEndDate));
+    this.currentDate=nightArray[0].dateString();
+    this.diffDuration=nightArray[0].summaryString();
+
+
     //this.overnightArray.push(new OvernightSleepData(newStartDate,newEndDate));
     await this.storageService.addSleepData(new OvernightSleepData(newStartDate,newEndDate));
-    this.currentRecord();
+    
   }
 
   deleteLog(index:number){
